@@ -1,0 +1,154 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    namespace 'com.fxyandtjh.voiceaccounting'
+    compileSdk 33
+
+    // 签名
+    signingConfigs {
+        debug {
+            storeFile file('./ycyysb.jks')
+            storePassword 'ycyysb'
+            keyAlias 'ycyysb'
+            keyPassword 'ycyysb'
+        }
+        release {
+            storeFile file('./ycyysb.jks')
+            storePassword 'ycyysb'
+            keyAlias 'ycyysb'
+            keyPassword 'ycyysb'
+
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.perucredit.app"
+        minSdk 31
+        targetSdk 33
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        flavorDimensions "project"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // 设置签名来源
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // 设置签名来源
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    productFlavors {
+        stage{
+            dimension "project"
+            applicationId 'com.perucredit.app'
+
+            buildConfigField "String", "BAIDU_URL", '"http://vop.baidu.com"'
+            buildConfigField "String", "TOKEN", '"24.0fa11405218e99a9d5ab312cdfbe093b.2592000.1697170230.282335-39260528"'
+        }
+        product{
+            dimension "project"
+            applicationId 'com.perucredit.app'
+
+            buildConfigField "String", "BAIDU_URL", '"http://vop.baidu.com"'
+            buildConfigField "String", "TOKEN", '"24.0fa11405218e99a9d5ab312cdfbe093b.2592000.1697170230.282335-39260528"'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+
+    viewBinding{
+        enabled = true
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            // 名称_日期_android_版本号.apk
+            outputFileName = "VoiceAccounting_${currentTime()}_${versionName}.apk"
+        }
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+}
+
+static def currentTime() {
+    return new Date().format("yyyy_MM_dd", TimeZone.getTimeZone("UTC"))
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // lifecycle
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'//lifecycleScope
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'//viewModelScope
+
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+
+    // activity-ktx fragment-ktx
+    implementation 'androidx.activity:activity-ktx:1.7.2'
+    implementation 'androidx.fragment:fragment-ktx:1.6.1'
+
+    // hilt
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+
+    // adapter
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
+
+    // navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+
+    // 工具类
+    implementation 'com.blankj:utilcodex:1.30.6'
+
+    // 加载圈
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    // 图片加载
+    implementation "com.github.bumptech.glide:glide:4.14.2"
+    kapt "com.github.bumptech.glide:compiler:4.14.2"
+
+    // Lottie动画
+    implementation "com.airbnb.android:lottie:6.1.0"
+}

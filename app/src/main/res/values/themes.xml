@@ -1,0 +1,53 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.VoiceAccounting" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <!-- Customize your light theme here. -->
+        <item name="colorOnPrimary">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.VoiceAccounting" parent="Base.Theme.VoiceAccounting" />
+
+    <style name="SimpleDialog" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="background">@android:color/transparent</item>
+    </style>
+
+    <style name="BoldText16">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#333333</item>
+    </style>
+    <style name="Text16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#333333</item>
+    </style>
+
+    <style name="BoldTextGray16">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#999999</item>
+    </style>
+
+    <style name="TextPrimary16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/primary_color</item>
+    </style>
+
+    <style name="TextPrimary14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/primary_color</item>
+    </style>
+
+    <style name="BoldText20">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#333333</item>
+    </style>
+</resources>
