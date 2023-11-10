@@ -12,21 +12,29 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.blankj.utilcode.util.ToastUtils
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.base.RxDialogSet
 import com.fxyandtjh.voiceaccounting.databinding.ActivityMainBinding
 import com.fxyandtjh.voiceaccounting.tool.SecurityUtil
+import com.fxyandtjh.voiceaccounting.tool.setVisible
 import com.fxyandtjh.voiceaccounting.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener {
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel: MainViewModel by viewModels()
+
+    private lateinit var navController: NavController
 
     // 网络加载圈
     private val requestDataLoadDialog: RxDialogSet by lazy {
@@ -58,6 +66,13 @@ class MainActivity : AppCompatActivity() {
             View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = Color.TRANSPARENT
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as
+                NavHostFragment
+        navController = navHostFragment.navController
+
+        binding.nvBottom.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener(this)
 
         lifecycleScope.launch {
             viewModel._loading.collect {
@@ -92,5 +107,17 @@ class MainActivity : AppCompatActivity() {
             return
         }
         viewModel.obtainTextFormVoice(base64Str, fileLength)
+    }
+
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
+        val curLabelName = destination.label
+
+        binding.nvBottom.setVisible(
+            curLabelName in listOf("HomeFragment", "NotesFragment", "MyFragment")
+        )
     }
 }

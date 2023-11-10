@@ -14,7 +14,7 @@ class RetrofitConfig private constructor(){
         }
     }
 
-    fun provideRetrofit(url: String = BuildConfig.BAIDU_URL): Retrofit {
+    fun provideRetrofit(url: String = BuildConfig.BASE_URL): Retrofit {
         val okhttpBuilder = OkHttpClient.Builder()
         okhttpBuilder.run {
             retryOnConnectionFailure(true)

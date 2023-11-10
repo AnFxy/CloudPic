@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">私有云相册</string>
     <string name="album">相册</string>
+    <string name="notes">笔记</string>
+    <string name="mine">我的</string>
     <string name="setting">设置</string>
     <string name="sava">保存</string>
     <string name="edit">编辑</string>

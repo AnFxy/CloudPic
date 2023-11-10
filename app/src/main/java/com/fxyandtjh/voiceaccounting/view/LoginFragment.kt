@@ -2,7 +2,6 @@ package com.fxyandtjh.voiceaccounting.view
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +15,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.base.BaseFragment
+import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragLoginBinding
 import com.fxyandtjh.voiceaccounting.entity.LoginInfo
 import com.fxyandtjh.voiceaccounting.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 @AndroidEntryPoint
@@ -71,50 +70,41 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
     }
 
     override fun setObserver() {
-        binding.btnLogin.setOnClickListener {
+        binding.btnLogin.setLimitClickListener {
             if (binding.btnLogin.isChecked != viewModel._selectedLogin.value) {
                 viewModel.changeSelectedState()
             }
         }
-
-        binding.btnForgetPw.setOnClickListener {
+        binding.btnForgetPw.setLimitClickListener {
             // TODO 前往密保页面
         }
-
-        binding.btnRegister.setOnClickListener {
+        binding.btnRegister.setLimitClickListener {
             if (binding.btnRegister.isChecked == viewModel._selectedLogin.value) {
                 viewModel.changeSelectedState()
             }
         }
-
         binding.editPassword.setOnFocusChangeListener { _, hasFocus ->
             // 启动动画
             viewModel.updateSelectedPassword(hasFocus)
             binding.imgLogo.startAnimation(animation)
         }
-
         binding.editNumber.addTextChangedListener {
             viewModel.updatePhoneNumber(it?.toString()?.trim() ?: "")
         }
-
         binding.editPassword.addTextChangedListener {
             viewModel.updatePw(it?.toString()?.trim() ?: "")
         }
-
         binding.editConfirmPassword.addTextChangedListener {
             viewModel.updateConfirmPw(it?.toString()?.trim() ?: "")
         }
-
         binding.checkEyes.setOnCheckedChangeListener { _, isChecked ->
             viewModel.updateEyes(isChecked)
         }
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel._selectedLogin.collect { value ->
                 updateButtonsSelected(value)
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel._eyesClose.collect { isClose ->
                 binding.editPassword.inputType =
@@ -129,16 +119,30 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
                         0x00000001
             }
         }
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel._pageData.collect { value ->
                 checkAccountAndPW(value)
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel._goHome.collect { value ->
+                navController.navigate(LoginFragmentDirections.actionLoginFragmentToMainNavigation())
+            }
+        }
+        binding.btnSubmit.setLimitClickListener {
+            if (viewModel._selectedLogin.value) {
+                // 执行登录的操作
+                viewModel.doLogin()
+            } else {
+                // 执行注册的操作
+                viewModel.doRegister()
             }
         }
     }
 
     private fun updateButtonsSelected(showLogin: Boolean) {
         // 登录按钮状态变更
+        binding.btnLogin.isChecked = showLogin
         binding.btnLogin.textSize = if (showLogin) 22f else 20f
         binding.btnLogin.typeface = if (showLogin) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
         binding.btnLogin.setTextColor(
@@ -175,10 +179,12 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
         // 判断手机号码是否是 1开头，且11位数
         val phoneResult = Pattern.compile("^1[0-9]{10}$").matcher(loginInfo.phoneNumber)
         val isPhoneNumOk = phoneResult.find()
+        // 判断密码是否是数字或字母组合8 - 12位长度
         val pwResult = Pattern.compile("^[a-zA-Z0-9]{8,16}$").matcher(loginInfo.password)
         val isPWOk = pwResult.find()
+        // 判断确认密码是否和密码一致
         val isConfirmPWOK = loginInfo.password == loginInfo.confirmPassword
-        binding.btnSubmit.isEnabled  = isPhoneNumOk && isPWOk
+        binding.btnSubmit.isEnabled = isPhoneNumOk && isPWOk
                 && (viewModel._selectedLogin.value || (!viewModel._selectedLogin.value && isConfirmPWOK))
     }
 }

@@ -8,5 +8,11 @@ class LocalCache {
         var token: String by SPSet<String>(SPKeys.TOKEN, "")
         // 手机号
         var phoneNumber: String by SPSet<String>(SPKeys.PHONE_NUMBER, "")
+
+        fun clearALLCache() {
+            isLogged = false
+            token = ""
+            phoneNumber = ""
+        }
     }
 }

@@ -10,11 +10,13 @@ import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.PhoneUtils
 import com.fxyandtjh.voiceaccounting.R
+import kotlinx.coroutines.launch
 
 abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
 
@@ -89,6 +91,17 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            mviewModel._loading.collect {
+                if (it) {
+                    requestDataLoadDialog?.show()
+                } else {
+                    requestDataLoadDialog?.dismiss()
+                }
+            }
+        }
+
         setLayout()
         setObserver()
     }

@@ -1,8 +1,6 @@
 package com.fxyandtjh.voiceaccounting.view
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -41,6 +39,7 @@ class SplashFragment : BaseFragment<SplashViewModel, FragSplashBinding>() {
                     delay(1000)
                 } else if (LocalCache.isLogged) {
                     // 登录了，需要进入到首页
+                    navController.navigate(SplashFragmentDirections.actionSplashFragmentToMainNavigation())
                 } else {
                     // 进入到登录页面
                     navController.navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())

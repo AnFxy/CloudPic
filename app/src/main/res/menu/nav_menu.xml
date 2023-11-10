@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/homeFragment"
         android:icon="@mipmap/home"
         android:title="@string/album" />
     <item
+        android:id="@+id/notesFragment"
+        android:icon="@mipmap/notes"
+        android:title="@string/notes"/>
+    <item
+        android:id="@+id/myFragment"
         android:icon="@mipmap/setting"
-        android:title="@string/setting"/>
+        android:title="@string/mine"/>
 </menu>

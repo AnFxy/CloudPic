@@ -1,22 +1,30 @@
 package com.fxyandtjh.voiceaccounting.viewmodel
 
+import com.blankj.utilcode.util.ToastUtils
 import com.fxyandtjh.voiceaccounting.base.BaseViewModel
 import com.fxyandtjh.voiceaccounting.entity.LoginInfo
+import com.fxyandtjh.voiceaccounting.local.LocalCache
+import com.fxyandtjh.voiceaccounting.repository.impl.LoginRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor() : BaseViewModel() {
+class LoginViewModel @Inject constructor(
+    private val loginRepository: LoginRepository
+) : BaseViewModel() {
 
-    private var selectedLogin = MutableStateFlow<Boolean>(true)
+    private val selectedLogin = MutableStateFlow<Boolean>(true)
     val _selectedLogin: StateFlow<Boolean> = selectedLogin
 
-    private var selectedPassword = MutableStateFlow<Boolean>(false)
+    private val selectedPassword = MutableStateFlow<Boolean>(false)
     val _selectedPassword: StateFlow<Boolean> = selectedPassword
 
-    private var eyesClose = MutableStateFlow<Boolean>(true)
+    private val eyesClose = MutableStateFlow<Boolean>(true)
     val _eyesClose: StateFlow<Boolean> = eyesClose
 
     private var pageData = MutableStateFlow<LoginInfo>(
@@ -27,6 +35,10 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
         )
     )
     val _pageData: StateFlow<LoginInfo> = pageData
+
+    // 事件
+    private val goHome = MutableSharedFlow<Boolean>()
+    val _goHome: SharedFlow<Boolean> = goHome
 
     fun changeSelectedState() {
         this.selectedLogin.value = !this.selectedLogin.value
@@ -50,5 +62,27 @@ class LoginViewModel @Inject constructor() : BaseViewModel() {
 
     fun updateEyes(isClosed: Boolean) {
         eyesClose.value = isClosed
+    }
+
+    fun doLogin() {
+        launchUIWithDialog {
+            delay(1500)
+            val tokenInfo = loginRepository.doLogin(_pageData.value)
+            // 登录成功后，将Token保存到本地
+            LocalCache.isLogged = true
+            LocalCache.token = tokenInfo.token
+            // 通知前往home页面
+            goHome.emit(true)
+        }
+    }
+
+    fun doRegister() {
+        launchUIWithDialog {
+            delay(1500)
+            loginRepository.doRegister(_pageData.value)
+            ToastUtils.showShort("注册成功")
+            updateConfirmPw("")
+            selectedLogin.value = true
+        }
     }
 }

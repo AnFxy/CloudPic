@@ -1,15 +1,13 @@
 package com.fxyandtjh.voiceaccounting.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.fxyandtjh.voiceaccounting.BuildConfig
+import com.fxyandtjh.voiceaccounting.base.BaseViewModel
 import com.fxyandtjh.voiceaccounting.net.NetInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,13 +15,10 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val serviceNet: NetInterface
-) : ViewModel() {
+) : BaseViewModel() {
 
     private var voiceData: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
     val _voiceData: StateFlow<List<String>> = voiceData
-
-    private var loading: MutableSharedFlow<Boolean> = MutableSharedFlow()
-    val _loading: SharedFlow<Boolean> = loading
 
     fun obtainTextFormVoice(base64Str: String, fileLength: Int) {
         val maper: HashMap<String, Any> = HashMap()
