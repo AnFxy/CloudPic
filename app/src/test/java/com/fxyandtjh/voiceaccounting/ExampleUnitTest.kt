@@ -14,4 +14,11 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+
+    @Test
+    fun testSub() {
+        val str = "http://123.23.23:5080/image/abcd.jpg"
+        val targetStr = str.substring(str.lastIndexOf("/"))
+        println(targetStr)
+    }
 }
