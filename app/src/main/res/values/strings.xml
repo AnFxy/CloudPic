@@ -9,6 +9,14 @@
     <string name="login">登录</string>
     <string name="cloud_pic">云相册</string>
     <string name="default_pic_dec">0相册 0照片</string>
+    <string name="default_nick_name">未设置昵称</string>
+    <string name="account_security">账户安全</string>
+    <string name="personal_info">个人信息</string>
+    <string name="check_version">版本升级</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="bug_reply">Bug 反馈</string>
+    <string name="responsibility">免责声明</string>
+    <string name="logout">退出登录</string>
     <string name="cloud_notes">云笔记</string>
     <string name="register">注册</string>
     <string name="password">密码</string>
@@ -21,7 +29,9 @@
     <string name="error_password">需(8-16位、字母和数字组合)正确格式的密码</string>
     <string name="check_privacy_first">请先阅读并同意隐私协议</string>
     <string name="i_know">我知道了</string>
-    <string name="cus_phone">19532948865</string>
-    <string name="cus_qq">2569658002</string>
+    <string name="cus_phone">手机-- 18583505646  </string>
+    <string name="cus_qq">QQ -- 2569658002</string>
     <string name="confirm">确认</string>
+    <string name="logout_check">是否需要退出登录？</string>
+    <string name="cancel">取消</string>
 </resources>

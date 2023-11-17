@@ -32,4 +32,10 @@
     </fragment>
     <include app:graph="@navigation/main_navigation" />
 
+    <action
+        android:id="@+id/just_go_login"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true"/>
+
 </navigation>

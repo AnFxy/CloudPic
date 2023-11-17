@@ -1,6 +1,7 @@
 package com.fxyandtjh.voiceaccounting.net
 
 import com.fxyandtjh.voiceaccounting.BuildConfig
+import com.fxyandtjh.voiceaccounting.local.LocalCache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -22,7 +23,7 @@ class RetrofitConfig private constructor(){
             addInterceptor(
                 Interceptor { chain ->
                     val request = chain.request().newBuilder()
-                    request.addHeader("Content-Type", "application/json")
+                    request.addHeader("token", LocalCache.token)
                     chain.proceed(request.build())
                 }
             )

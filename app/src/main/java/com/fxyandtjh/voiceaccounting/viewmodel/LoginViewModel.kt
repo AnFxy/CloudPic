@@ -71,6 +71,7 @@ class LoginViewModel @Inject constructor(
             // 登录成功后，将Token保存到本地
             LocalCache.isLogged = true
             LocalCache.token = tokenInfo.token
+            LocalCache.phoneNumber = _pageData.value.phoneNumber
             // 通知前往home页面
             goHome.emit(true)
         }

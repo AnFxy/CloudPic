@@ -2,90 +2,98 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    android:paddingVertical="20dp"
-    android:background="@drawable/bg_10_white">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/container_tel"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:paddingVertical="20dp"
+        android:background="@drawable/bg_10_white">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/container_tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:src="@mipmap/phone"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="30dp"
+                android:layout_marginEnd="60dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="@string/cus_phone"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginStart="20dp"
-            android:src="@mipmap/phone"/>
+            android:layout_marginEnd="20dp"
+            android:background="#F7F8F9"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/container_tel"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/container_qq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:src="@mipmap/qq"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="30dp"
+                android:layout_marginEnd="60dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="@string/cus_qq"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <TextView
+            android:id="@+id/tv_i_know"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="textEnd"
-            android:layout_marginEnd="60dp"
-            android:textSize="24sp"
+            android:text="@string/confirm"
+            android:paddingVertical="6dp"
+            android:paddingHorizontal="20dp"
+            android:textSize="14sp"
             android:textStyle="bold"
-            android:text="@string/cus_phone"/>
+            android:textColor="@color/white"
+            android:background="@drawable/bg_14_green"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/container_qq"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="#F7F8F9"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/container_tel"/>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/container_qq"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/divider"
-        >
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:src="@mipmap/qq"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="textEnd"
-            android:layout_marginEnd="60dp"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:text="@string/cus_qq"/>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <TextView
-        android:id="@+id/tv_i_know"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/confirm"
-        android:paddingVertical="6dp"
-        android:paddingHorizontal="20dp"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:background="@drawable/bg_14_green"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/container_qq"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

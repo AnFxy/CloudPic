@@ -4,6 +4,7 @@ import com.fxyandtjh.voiceaccounting.net.response.AlbumDetail
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
 import com.fxyandtjh.voiceaccounting.net.response.NotesInfo
 import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
+import com.fxyandtjh.voiceaccounting.net.response.UserInfo
 
 interface IMainRepository {
     // 获取用户的相册
@@ -20,6 +21,8 @@ interface IMainRepository {
     suspend fun updateAlbumDetail(albumId: String, title: String, labelId: Int, faceUrl: String)
     // 删除整个相册
     suspend fun deleteAlbum(albumId: String)
+    // 获取用户信息
+    suspend fun obtainUserInformation(): UserInfo
 
     suspend fun getNotesListFromRemote(): List<NotesInfo>
 }

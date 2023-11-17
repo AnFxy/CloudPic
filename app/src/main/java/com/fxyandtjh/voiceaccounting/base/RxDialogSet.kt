@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import com.fxyandtjh.voiceaccounting.R
 
 class RxDialogSet(context: Context, theme: Int, private val itemLayoutId: Int) :
@@ -24,6 +25,10 @@ class RxDialogSet(context: Context, theme: Int, private val itemLayoutId: Int) :
         width: Int = ViewGroup.LayoutParams.MATCH_PARENT,
         height: Int = ViewGroup.LayoutParams.MATCH_PARENT
     ): RxDialogSet {
+        // 设置状态栏为黑色
+        window?.decorView?.windowInsetsController?.setSystemBarsAppearance(
+            APPEARANCE_LIGHT_STATUS_BARS, APPEARANCE_LIGHT_STATUS_BARS
+        )
         window?.setLayout(width, height)
         return this
     }
@@ -35,16 +40,17 @@ class RxDialogSet(context: Context, theme: Int, private val itemLayoutId: Int) :
     }
 
     companion object {
-        fun provideDialog(context: Context, layoutId: Int) =
-            RxDialogSet(context, R.style.SimpleDialog, layoutId)
+
+        fun provideDialogBottom(context: Context, view: Int): RxDialogSet =
+            provideDialog(context, view, true)
+
+        fun provideDialog(context: Context, layoutId: Int, isBottom: Boolean = false): RxDialogSet {
+            val dialog = RxDialogSet(context, R.style.SimpleDialog, layoutId)
                 .setCancelByGesture()
                 .setDialogWidthHeight()
-
-        fun provideDialogBottom(context: Context, view: Int): RxDialogSet {
-            val dialog = provideDialog(context, view)
             val dialogWindow = dialog.window
             val lp = dialogWindow?.attributes
-            lp?.gravity = Gravity.BOTTOM
+            lp?.gravity = if (isBottom) Gravity.BOTTOM else Gravity.CENTER
             dialogWindow?.attributes = lp
             return dialog
         }

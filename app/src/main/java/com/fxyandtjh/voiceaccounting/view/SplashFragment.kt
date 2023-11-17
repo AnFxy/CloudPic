@@ -33,7 +33,7 @@ class SplashFragment : BaseFragment<SplashViewModel, FragSplashBinding>() {
     override fun setObserver() {
         // 进度条
         lifecycleScope.launch {
-            for (i in 3 downTo 0) {
+            for (i in 2 downTo 0) {
                 binding.ivProgress.text = "${i}s"
                 if (i != 0) {
                     delay(1000)
@@ -48,7 +48,13 @@ class SplashFragment : BaseFragment<SplashViewModel, FragSplashBinding>() {
         }
 
         binding.ivProgress.setLimitClickListener {
-            navController.navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
+            if (LocalCache.isLogged) {
+                // 登录了，需要进入到首页
+                navController.navigate(SplashFragmentDirections.actionSplashFragmentToMainNavigation())
+            } else {
+                // 进入到登录页面
+                navController.navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
+            }
         }
     }
 }

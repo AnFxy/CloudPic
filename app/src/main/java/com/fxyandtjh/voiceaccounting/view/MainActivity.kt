@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -14,7 +15,7 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.blankj.utilcode.util.ToastUtils
@@ -59,13 +60,11 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initView() {
-        // 设置沉浸式状态栏
-        val window = window
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = Color.TRANSPARENT
+        // 设置状态栏图标 为黑色
+        window?.decorView?.windowInsetsController?.setSystemBarsAppearance(
+            WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+            WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+        )
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as
                 NavHostFragment
@@ -82,6 +81,20 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                     requestDataLoadDialog.dismiss()
                 }
             }
+        }
+
+        binding.nvBottom.setOnItemSelectedListener {
+            val builder =
+                NavOptions.Builder()
+                    .setLaunchSingleTop(true)
+                    .setRestoreState(true)
+                    .setPopUpTo(
+                        R.id.homeFragment,
+                        inclusive = false,
+                        saveState = true
+                    )
+            navController.navigate(it.itemId, null, builder.build())
+            navController.currentDestination?.id == it.itemId
         }
     }
 

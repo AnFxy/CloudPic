@@ -6,6 +6,7 @@ import com.fxyandtjh.voiceaccounting.net.response.NotesInfo
 import com.fxyandtjh.voiceaccounting.entity.VoiceInfo
 import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
 import com.fxyandtjh.voiceaccounting.net.response.TokenInfo
+import com.fxyandtjh.voiceaccounting.net.response.UserInfo
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -47,4 +48,7 @@ interface NetInterface {
 
     @GET("/notes")
     suspend fun getNotes(): BaseResponse<List<NotesInfo>>
+
+    @GET("/userinfo")
+    suspend fun getUserInformation(): BaseResponse<UserInfo>
 }

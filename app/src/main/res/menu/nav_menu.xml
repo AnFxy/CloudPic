@@ -7,9 +7,9 @@
     <item
         android:id="@+id/notesFragment"
         android:icon="@mipmap/notes"
-        android:title="@string/notes"/>
+        android:title="@string/notes" />
     <item
         android:id="@+id/myFragment"
         android:icon="@mipmap/setting"
-        android:title="@string/mine"/>
+        android:title="@string/mine" />
 </menu>

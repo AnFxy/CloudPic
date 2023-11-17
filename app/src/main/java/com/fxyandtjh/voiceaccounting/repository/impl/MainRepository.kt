@@ -1,10 +1,12 @@
 package com.fxyandtjh.voiceaccounting.repository.impl
 
+import com.fxyandtjh.voiceaccounting.entity.LoginInfo
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
 import com.fxyandtjh.voiceaccounting.net.response.NotesInfo
 import com.fxyandtjh.voiceaccounting.net.NetInterface
 import com.fxyandtjh.voiceaccounting.net.response.AlbumDetail
 import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
+import com.fxyandtjh.voiceaccounting.net.response.UserInfo
 import com.fxyandtjh.voiceaccounting.repository.IMainRepository
 import javax.inject.Inject
 
@@ -62,6 +64,10 @@ class MainRepository @Inject constructor(
         val map = HashMap<String, String>()
         map["albumId"] = albumId
         return service.deleteAlbum(map).checkError()
+    }
+
+    override suspend fun obtainUserInformation(): UserInfo {
+        return service.getUserInformation().checkData()
     }
 
     override suspend fun getNotesListFromRemote(): List<NotesInfo> {

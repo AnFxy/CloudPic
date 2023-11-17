@@ -10,14 +10,12 @@ import android.view.animation.AnimationUtils
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.base.BaseFragment
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragLoginBinding
 import com.fxyandtjh.voiceaccounting.entity.LoginInfo
+import com.fxyandtjh.voiceaccounting.tool.PicLoadUtil
 import com.fxyandtjh.voiceaccounting.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -38,11 +36,11 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
 
     override fun setLayout() {
         // 设置 logo 为圆角
-        val options = RequestOptions()
-            .transform(RoundedCorners(20))
-        Glide.with(this).apply {
-            applyDefaultRequestOptions(options)
-        }.load(R.mipmap.logo).into(binding.imgLogo)
+        PicLoadUtil.instance.loadPic(
+            context = context,
+            url = R.mipmap.logo,
+            targetView = binding.imgLogo
+        )
 
         // 设置动画
         animation = AnimationUtils.loadAnimation(activity, R.anim.bg_anim)
@@ -53,14 +51,11 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
 
             override fun onAnimationEnd(animation: Animation?) {
                 // 切换头像
-                Glide.with(this@LoginFragment).apply {
-                    applyDefaultRequestOptions(options)
-                }.load(
-                    if (viewModel._selectedPassword.value)
-                        R.mipmap.logo_float
-                    else
-                        R.mipmap.logo
-                ).into(binding.imgLogo)
+                PicLoadUtil.instance.loadPic(
+                    context = context,
+                    url = if (viewModel._selectedPassword.value) R.mipmap.logo_float else R.mipmap.logo,
+                    targetView = binding.imgLogo
+                )
             }
 
             override fun onAnimationRepeat(animation: Animation?) {
