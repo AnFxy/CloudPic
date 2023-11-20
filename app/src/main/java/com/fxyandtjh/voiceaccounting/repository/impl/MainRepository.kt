@@ -1,10 +1,9 @@
 package com.fxyandtjh.voiceaccounting.repository.impl
 
-import com.fxyandtjh.voiceaccounting.entity.LoginInfo
-import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
-import com.fxyandtjh.voiceaccounting.net.response.NotesInfo
 import com.fxyandtjh.voiceaccounting.net.NetInterface
 import com.fxyandtjh.voiceaccounting.net.response.AlbumDetail
+import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
+import com.fxyandtjh.voiceaccounting.net.response.NotesInfo
 import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
 import com.fxyandtjh.voiceaccounting.net.response.UserInfo
 import com.fxyandtjh.voiceaccounting.repository.IMainRepository
@@ -38,7 +37,11 @@ class MainRepository @Inject constructor(
         return service.uploadImage(map).checkData()
     }
 
-    override suspend fun updateAlbumPic(imageUrlList: List<String>, albumId: String, updateType: String) {
+    override suspend fun updateAlbumPic(
+        imageUrlList: List<String>,
+        albumId: String,
+        updateType: String
+    ) {
         val map = HashMap<String, Any>()
         map["imageUrlList"] = imageUrlList // 列表 List<String> String是图片链接字符串
         map["albumId"] = albumId
@@ -68,6 +71,15 @@ class MainRepository @Inject constructor(
 
     override suspend fun obtainUserInformation(): UserInfo {
         return service.getUserInformation().checkData()
+    }
+
+    override suspend fun updateUserInformation(userInfo: UserInfo) {
+        val map = HashMap<String, Any>()
+        map["name"] = userInfo.name
+        map["headUrl"] = userInfo.headUrl
+        map["gender"] = userInfo.gender
+        map["des"] = userInfo.des
+        service.updateUserInformation(map).checkError()
     }
 
     override suspend fun getNotesListFromRemote(): List<NotesInfo> {

@@ -23,6 +23,8 @@ interface IMainRepository {
     suspend fun deleteAlbum(albumId: String)
     // 获取用户信息
     suspend fun obtainUserInformation(): UserInfo
+    // 更新用户信息
+    suspend fun updateUserInformation(userInfo: UserInfo)
 
     suspend fun getNotesListFromRemote(): List<NotesInfo>
 }

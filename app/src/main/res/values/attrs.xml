@@ -3,6 +3,15 @@
     <declare-styleable name="LineItemView">
         <attr name="key" format="string"/>
         <attr name="value" format="string"/>
+        <attr name="allowTypeChange" format="boolean"/>
+        <attr name="isEnable" format="boolean"/>
+        <attr name="type" format="enum">
+            <enum name="icon" value="1"/>
+            <enum name="edit" value="2" />
+            <enum name="fixed" value="3"/>
+            <enum name="empty" value="4"/>
+            <enum name="gender" value="5"/>
+        </attr>
         <attr name="showLine" format="boolean" />
     </declare-styleable>
 </resources>

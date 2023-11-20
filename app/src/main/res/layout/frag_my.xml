@@ -43,6 +43,19 @@
         app:layout_constraintStart_toEndOf="@id/iv_head"
         tools:text="195*****246"/>
 
+    <TextView
+        android:id="@+id/tv_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextPrimary12"
+        android:paddingVertical="3dp"
+        android:paddingHorizontal="15dp"
+        android:layout_marginHorizontal="15dp"
+        android:background="@drawable/bg_4_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_head"
+        android:layout_marginTop="6dp"/>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/container_account"
         android:layout_width="match_parent"
@@ -52,20 +65,22 @@
         android:paddingVertical="4dp"
         android:layout_marginHorizontal="15dp"
         android:background="@drawable/bg_10_white"
-        app:layout_constraintTop_toBottomOf="@id/iv_head">
+        app:layout_constraintTop_toBottomOf="@id/tv_des">
 
         <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
             android:id="@+id/liv_security"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="@string/account_security" />
+            app:key="@string/account_security"
+            app:type="empty"/>
 
         <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
             android:id="@+id/liv_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:showLine="false"
-            app:key="@string/personal_info" />
+            app:key="@string/personal_info"
+            app:type="empty"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -83,26 +98,32 @@
             android:id="@+id/liv_version"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="@string/check_version" />
+            app:key="@string/check_version"
+            app:value="google_1.0.0"
+            app:type="fixed"/>
 
         <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
             android:id="@+id/liv_cache"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="@string/clear_cache" />
+            app:key="@string/clear_cache"
+            app:value="484KB"
+            app:type="fixed"/>
 
         <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
             android:id="@+id/liv_bug"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:key="@string/bug_reply" />
+            app:key="@string/bug_reply"
+            app:type="empty"/>
 
         <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
             android:id="@+id/liv_responsibility"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:showLine="false"
-            app:key="@string/responsibility" />
+            app:key="@string/responsibility"
+            app:type="empty"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView

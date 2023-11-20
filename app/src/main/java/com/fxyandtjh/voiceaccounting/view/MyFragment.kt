@@ -1,8 +1,6 @@
 package com.fxyandtjh.voiceaccounting.view
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
@@ -41,6 +39,11 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.obtainPersonalInformation()
+    }
+
     override fun getViewMode(): MyViewModel = viewModel
 
     override fun getViewBinding(inflater: LayoutInflater, parent: ViewGroup?): FragMyBinding =
@@ -50,6 +53,11 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
         binding.tvLogout.setLimitClickListener {
             // 点击退出登录 弹出挽留弹框
             logoutDialog?.show()
+        }
+
+        binding.livInfo.setLimitClickListener {
+            // 点击进入个人信息页面
+            navController.navigate(MyFragmentDirections.actionMyFragmentToUserInfoFragment())
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -69,6 +77,7 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
     private fun updateUserInformation(userInfo: UserInfo) {
         binding.tvName.text = userInfo.name
         binding.tvPhoneNumber.text = encryptionPhoneNumber(userInfo.phoneNumber)
+        binding.tvDes.text = if (userInfo.des == "") getText(R.string.default_dec) else userInfo.des
         // 加载头像
         PicLoadUtil.instance.loadPic(
             context = context,

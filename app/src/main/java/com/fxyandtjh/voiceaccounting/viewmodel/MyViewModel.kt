@@ -34,10 +34,6 @@ class MyViewModel @Inject constructor(
     )
     val _userInfoData: StateFlow<UserInfo> = userInfoData
 
-    init {
-        obtainPersonalInformation()
-    }
-
     fun doLogout () {
         launchUIWithDialog {
             loginRepository.doLogout(phoneNumber = LocalCache.phoneNumber, token = LocalCache.token)
@@ -50,6 +46,8 @@ class MyViewModel @Inject constructor(
     fun obtainPersonalInformation () {
         launchUIWithDialog {
             userInfoData.value = mainRepository.obtainUserInformation()
+            // 将用户信息保存到本地
+            LocalCache.userInfo = _userInfoData.value
         }
     }
 }

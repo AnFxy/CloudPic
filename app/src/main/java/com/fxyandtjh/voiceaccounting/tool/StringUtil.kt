@@ -1,5 +1,9 @@
 package com.fxyandtjh.voiceaccounting.tool
 
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.Date
+
 fun encryptionPhoneNumber(phoneNumber: String): String {
     return if (phoneNumber.length >= 6) {
         // 取前面三位
@@ -8,5 +12,17 @@ fun encryptionPhoneNumber(phoneNumber: String): String {
         "${preStr}*****${endStr}"
     } else {
         phoneNumber;
+    }
+}
+
+// 时间戳转日期
+fun timeStampToDate(timeStamp: Long): String {
+    return try {
+        val date = Date(timeStamp)
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        sdf.format(date)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        "-- -- --"
     }
 }

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/m_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        app:navigationIcon="@mipmap/back">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/BoldText18"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/personal_info"
+                android:textAlignment="center"
+                android:layout_marginEnd="20dp"/>
+
+            <TextView
+                android:id="@+id/tv_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextPrimary16"
+                android:layout_marginEnd="15dp"
+                android:text="@string/edit"/>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="15dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_10_white"
+        app:layout_constraintTop_toBottomOf="@id/m_toolbar">
+
+        <!--头像-->
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="@string/edit_head"
+            app:type="icon"
+            app:isEnable="false"/>
+        <!--昵称-->
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="@string/nick_name"
+            app:type="fixed"
+            app:allowTypeChange="true"
+            app:isEnable="false"/>
+        <!--性别-->
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="@string/gender"
+            app:type="gender"
+            app:isEnable="false"
+            />
+        <!--创建时间-->
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_create_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="@string/create_time"
+            app:isEnable="false"
+            app:type="fixed"/>
+        <!--个性签名-->
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="@string/des"
+            app:type="fixed"
+            app:isEnable="false"
+            app:showLine="false"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp">
+            <EditText
+                android:id="@+id/et_des"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextPrimary14"
+                android:maxLength="30"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/bg_8_light_gray" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

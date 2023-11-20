@@ -5,10 +5,14 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.blankj.utilcode.util.Utils
 import com.fxyandtjh.voiceaccounting.base.Constants
+import com.fxyandtjh.voiceaccounting.viewmodel.JsonToBean
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-class SPSet<T>(private val key: String, private val defaultValue: T) : ReadWriteProperty<Any?, T> {
+class SPSet<T>(private val key: String, private val defaultValue: T, private val type: Type = Any::class.java) : ReadWriteProperty<Any?, T> {
     companion object {
         val preference: SharedPreferences by lazy {
             Utils.getApp().getSharedPreferences(
@@ -26,19 +30,27 @@ class SPSet<T>(private val key: String, private val defaultValue: T) : ReadWrite
             is Int -> putInt(key, default)
             is Boolean -> putBoolean(key, default)
             is Float -> putFloat(key, default)
-            else -> throw IllegalArgumentException("This type of data can not be saved! ")
+            else -> {
+                val jsonSrc = Gson().toJson(default)
+                putString(key, jsonSrc)
+            }
         }.apply()
     }
 
     @Suppress("UNCHECKED_CAST")
-    private fun <T> getSaveValue(key: String, default: T): T = with(preference) {
+    private fun <T> getSaveValue(key: String, default: T, type: Type): T = with(preference) {
         val value: Any? = when (default) {
             is Long -> getLong(key, default)
             is String -> getString(key, default)
             is Int -> getInt(key, default)
             is Boolean -> getBoolean(key, default)
             is Float -> getFloat(key, default)
-            else -> throw IllegalArgumentException("This type of data can not be saved! ")
+            else -> {
+                val str = getString(key, "")
+                str?.let {
+                    Gson().fromJson(it, type)
+                } ?: default
+            }
         }
         value as T
     }
@@ -48,6 +60,6 @@ class SPSet<T>(private val key: String, private val defaultValue: T) : ReadWrite
     }
 
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {
-        return getSaveValue(key, defaultValue)
+        return getSaveValue(key, defaultValue, type)
     }
 }

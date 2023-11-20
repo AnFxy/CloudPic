@@ -15,5 +15,13 @@
     <fragment
         android:id="@+id/myFragment"
         android:name="com.fxyandtjh.voiceaccounting.view.MyFragment"
-        android:label="MyFragment" />
+        android:label="MyFragment" >
+        <action
+            android:id="@+id/action_myFragment_to_userInfoFragment"
+            app:destination="@id/userInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="com.fxyandtjh.voiceaccounting.view.UserInfoFragment"
+        android:label="UserInfoFragment" />
 </navigation>

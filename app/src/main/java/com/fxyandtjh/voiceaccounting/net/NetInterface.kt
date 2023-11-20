@@ -34,6 +34,7 @@ interface NetInterface {
     @POST("/get_album_detail")
     suspend fun getAlbumDetail(@Body body: Map<String, String>): BaseResponse<AlbumDetail>
 
+    // 图片上传
     @POST("/upload/image")
     suspend fun uploadImage(@Body body: Map<String, String>): BaseResponse<PictureInfo>
 
@@ -51,4 +52,7 @@ interface NetInterface {
 
     @GET("/userinfo")
     suspend fun getUserInformation(): BaseResponse<UserInfo>
+
+    @POST("/update_userinfo")
+    suspend fun updateUserInformation(@Body body: Map<String, @JvmSuppressWildcards Any>): BaseResponse<Unit>
 }
