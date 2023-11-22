@@ -7,6 +7,7 @@ import com.fxyandtjh.voiceaccounting.entity.VoiceInfo
 import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
 import com.fxyandtjh.voiceaccounting.net.response.TokenInfo
 import com.fxyandtjh.voiceaccounting.net.response.UserInfo
+import com.fxyandtjh.voiceaccounting.net.response.VersionInfo
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -55,4 +56,7 @@ interface NetInterface {
 
     @POST("/update_userinfo")
     suspend fun updateUserInformation(@Body body: Map<String, @JvmSuppressWildcards Any>): BaseResponse<Unit>
+
+    @POST("/check_update")
+    suspend fun checkVersionUpdate(): BaseResponse<VersionInfo>
 }

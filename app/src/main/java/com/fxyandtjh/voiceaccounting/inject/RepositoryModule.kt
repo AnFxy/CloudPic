@@ -2,8 +2,10 @@ package com.fxyandtjh.voiceaccounting.inject
 
 import com.fxyandtjh.voiceaccounting.repository.ILoginRepository
 import com.fxyandtjh.voiceaccounting.repository.IMainRepository
+import com.fxyandtjh.voiceaccounting.repository.IStartupRepository
 import com.fxyandtjh.voiceaccounting.repository.impl.LoginRepository
 import com.fxyandtjh.voiceaccounting.repository.impl.MainRepository
+import com.fxyandtjh.voiceaccounting.repository.impl.StartupRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,4 +23,9 @@ abstract class RepositoryModule {
     abstract fun createMainRepository(
         mainRepository: MainRepository
     ): IMainRepository
+
+    @Binds
+    abstract fun createStartupRepository(
+        startupRepository: StartupRepository
+    ): IStartupRepository
 }

@@ -33,6 +33,16 @@
         android:text="@string/default_nick_name"
         />
 
+    <ImageView
+        android:id="@+id/iv_gender"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@mipmap/male"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/tv_name"
+        app:layout_constraintTop_toTopOf="@id/tv_name"
+        app:layout_constraintBottom_toBottomOf="@id/tv_name"/>
+
     <TextView
         android:id="@+id/tv_phone_number"
         android:layout_width="wrap_content"
@@ -45,7 +55,7 @@
 
     <TextView
         android:id="@+id/tv_des"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/TextPrimary12"
         android:paddingVertical="3dp"
@@ -54,7 +64,7 @@
         android:background="@drawable/bg_4_gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_head"
-        android:layout_marginTop="6dp"/>
+        android:layout_marginTop="6dp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/container_account"

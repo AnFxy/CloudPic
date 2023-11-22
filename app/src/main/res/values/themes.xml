@@ -34,6 +34,12 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="TextWhiteBold16">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="BoldTextGray16">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
@@ -57,6 +63,12 @@
 
     <style name="TextWhite12">
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextWhiteBold12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
     </style>
 

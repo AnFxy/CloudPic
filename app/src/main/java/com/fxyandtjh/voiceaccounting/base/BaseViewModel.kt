@@ -31,4 +31,19 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun launchUIWithDialog(block: suspend CoroutineScope.() -> Unit) = launchUIWithDialog(block) {}
+
+    fun launchUI (
+        block: suspend CoroutineScope.() -> Unit,
+        onError: suspend CoroutineScope.() -> Unit
+    ) = viewModelScope.launch {
+        try {
+            // loading事件只在BaseActivity中消费
+            block()
+        } catch (e: Exception) {
+            ErrorHandleUtil.handleError(e)
+            onError()
+        }
+    }
+
+    fun launchUI(block: suspend CoroutineScope.() -> Unit) = launchUI(block) {}
 }

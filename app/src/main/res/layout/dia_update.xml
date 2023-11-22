@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="20dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="60dp"
+        android:background="@drawable/bg_10_white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="15dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/title"/>
+            <TextView
+                android:id="@+id/tv_version_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextWhiteBold12"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/bg_2_blue"
+                android:paddingVertical="2dp"
+                android:paddingHorizontal="6dp"
+                tools:text="V1.0.0"/>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
+            style="@style/Text16"
+            tools:text="新版本来啦"/>
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="8dp"
+            style="@style/GrayText14"
+            tools:text="1、细节小优化功能大提升！\n2、为了给您提供更好的体验，接下来进行一个小更新。"/>
+
+        <LinearLayout
+            android:id="@+id/container_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/bg_16_blue"
+            android:layout_marginHorizontal="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/update_now"
+                style="@style/TextWhiteBold16"
+                android:paddingVertical="8dp" />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="5dp"
+                android:src="@mipmap/update_mini"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_close"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginHorizontal="15dp"
+            android:paddingVertical="8dp"
+            android:layout_marginTop="3dp"
+            style="@style/GrayText14"
+            android:text="@string/next_do"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:src="@mipmap/rocket"
+        android:layout_marginBottom="-70dp"
+        app:layout_constraintStart_toStartOf="@id/container"
+        app:layout_constraintEnd_toEndOf="@id/container"
+        app:layout_constraintBottom_toTopOf="@id/container"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
