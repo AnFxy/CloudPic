@@ -24,6 +24,8 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
 
     var isHiddenStatus = false
 
+    var specialBack: (() -> Unit)? = null // 特定页面特殊返回操作
+
     lateinit var navController: NavController
 
     // viewModel 获取
@@ -79,7 +81,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
                     }
 
                     setLimitMenuClickListener({
-                        activity?.onBackPressed()
+                        specialBack?.invoke() ?: activity?.onBackPressed()
                     }, {
                         cusDialog?.show()
                     })

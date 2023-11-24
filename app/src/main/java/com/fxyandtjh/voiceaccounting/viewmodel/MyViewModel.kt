@@ -43,6 +43,10 @@ class MyViewModel @Inject constructor(
     private val showUpdate: MutableSharedFlow<VersionInfo> = MutableSharedFlow()
     val _showUpdate: SharedFlow<VersionInfo> = showUpdate
 
+    init {
+        obtainPersonalInformation()
+    }
+
     fun doLogout () {
         launchUIWithDialog {
             loginRepository.doLogout(phoneNumber = LocalCache.phoneNumber, token = LocalCache.token)

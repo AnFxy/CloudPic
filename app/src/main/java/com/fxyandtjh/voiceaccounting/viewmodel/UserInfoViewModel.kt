@@ -33,9 +33,13 @@ class UserInfoViewModel @Inject constructor(
         editAble.value = !_editAble.value
     }
 
+    fun updateEditDataToVM(des: String, nickName: String, gender: String) {
+        pageData.value = _pageData.value.copy(des = des, name = nickName, gender = gender.toInt())
+    }
+
     // 更新用户个人信息
     fun uploadPageDataToRemote(des: String, nickName: String, gender: String) {
-        pageData.value = _pageData.value.copy(des = des, name = nickName, gender = gender.toInt())
+        updateEditDataToVM(des, nickName, gender)
         launchUIWithDialog {
             mainRepository.updateUserInformation(_pageData.value)
             updateEvent.emit(true)

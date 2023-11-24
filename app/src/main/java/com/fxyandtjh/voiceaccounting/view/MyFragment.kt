@@ -2,6 +2,7 @@ package com.fxyandtjh.voiceaccounting.view
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -13,7 +14,9 @@ import com.fxyandtjh.voiceaccounting.BuildConfig
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.StartupNavigationDirections
 import com.fxyandtjh.voiceaccounting.base.BaseFragment
+import com.fxyandtjh.voiceaccounting.base.Constants
 import com.fxyandtjh.voiceaccounting.base.RxDialogSet
+import com.fxyandtjh.voiceaccounting.base.receiveCallBackDataFromLastFragment
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragMyBinding
 import com.fxyandtjh.voiceaccounting.net.response.UserInfo
@@ -52,11 +55,6 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.obtainPersonalInformation()
-    }
-
     override fun getViewMode(): MyViewModel = viewModel
 
     override fun getViewBinding(inflater: LayoutInflater, parent: ViewGroup?): FragMyBinding =
@@ -65,6 +63,10 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
     override fun setLayout() {
         binding.livVersion.value = viewModel.version
         binding.livCache.value = viewModel.cacheValue
+
+        receiveCallBackDataFromLastFragment<Boolean>(key = Constants.USER_FRAG) {
+            viewModel.obtainPersonalInformation()
+        }
     }
 
     override fun setObserver() {

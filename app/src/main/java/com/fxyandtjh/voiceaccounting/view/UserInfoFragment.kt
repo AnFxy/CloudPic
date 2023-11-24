@@ -20,6 +20,8 @@ import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.UriUtils
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.base.BaseFragment
+import com.fxyandtjh.voiceaccounting.base.Constants
+import com.fxyandtjh.voiceaccounting.base.FragDestroyCallBack
 import com.fxyandtjh.voiceaccounting.base.RxDialogSet
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.base.setLimitMenuClickListener
@@ -114,13 +116,16 @@ class UserInfoFragment : BaseFragment<UserInfoViewModel, FragUserInfoBinding>() 
                 }
             }
 
+        // 返回回调
+        specialBack = {
+            FragDestroyCallBack(
+                key = Constants.USER_FRAG,
+                data = true
+            )
+        }
     }
 
     override fun setObserver() {
-        binding.mToolbar.setLimitMenuClickListener({
-            navController.popBackStack()
-        }, {})
-
         binding.tvEdit.setLimitClickListener {
             if (viewModel._editAble.value) {
                 // 判断个性签名、昵称、性别是否修改
@@ -164,6 +169,11 @@ class UserInfoFragment : BaseFragment<UserInfoViewModel, FragUserInfoBinding>() 
         // 当用户修改头像时
         binding.livHead.callBackClickHead = {
             // 当用户点击头像时，弹出头像选择框
+            // 判断个性签名、昵称、性别是否修改
+            val currentDes = binding.etDes.text.toString()
+            val currentNickName = binding.livName.value
+            val currentGender = binding.livGender.value
+            viewModel.updateEditDataToVM(currentDes,currentNickName, currentGender)
             albumDialog?.show()
         }
     }
