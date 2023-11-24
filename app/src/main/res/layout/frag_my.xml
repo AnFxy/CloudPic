@@ -128,11 +128,19 @@
             app:type="empty"/>
 
         <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
-            android:id="@+id/liv_responsibility"
+            android:id="@+id/liv_privacy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:showLine="false"
-            app:key="@string/responsibility"
+            app:key="@string/privacy"
+            app:type="empty"/>
+
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_user_privacy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:showLine="false"
+            app:key="@string/user_privacy"
             app:type="empty"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 

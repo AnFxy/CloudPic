@@ -19,9 +19,24 @@
         <action
             android:id="@+id/action_myFragment_to_userInfoFragment"
             app:destination="@id/userInfoFragment" />
+        <action
+            android:id="@+id/action_myFragment_to_bugFragment"
+            app:destination="@id/bugFragment" />
     </fragment>
     <fragment
         android:id="@+id/userInfoFragment"
         android:name="com.fxyandtjh.voiceaccounting.view.UserInfoFragment"
         android:label="UserInfoFragment" />
+    <fragment
+        android:id="@+id/bugFragment"
+        android:name="com.fxyandtjh.voiceaccounting.view.BugFragment"
+        android:label="BugFragment" >
+        <action
+            android:id="@+id/action_bugFragment_to_bugHisFragment"
+            app:destination="@id/bugHisFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bugHisFragment"
+        android:name="com.fxyandtjh.voiceaccounting.view.BugHisFragment"
+        android:label="BugHisFragment" />
 </navigation>

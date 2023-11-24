@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">私有云相册</string>
+    <string name="app_name">小鲸鱼相册</string>
     <string name="album">相册</string>
     <string name="notes">笔记</string>
     <string name="mine">我的</string>
@@ -16,6 +16,8 @@
     <string name="clear_cache">清除缓存</string>
     <string name="bug_reply">Bug 反馈</string>
     <string name="responsibility">免责声明</string>
+    <string name="privacy">隐私协议</string>
+    <string name="user_privacy">用户协议</string>
     <string name="logout">退出登录</string>
     <string name="cloud_notes">云笔记</string>
     <string name="register">注册</string>
@@ -50,4 +52,18 @@
     <string name="update_now">立即更新</string>
     <string name="next_do">下次再说</string>
     <string name="update_newest">已经是最新版本哦！</string>
+    <string name="no_cache">暂无缓存数据</string>
+    <string name="response_history">反馈记录</string>
+    <string name="response_type">反馈类型</string>
+    <string name="fun_opt">功能优化</string>
+    <string name="bug_res">Bug反馈</string>
+    <string name="communicate_email">联系邮箱</string>
+    <string name="question_des">问题描述</string>
+    <string name="screen_cut">相关截图</string>
+    <string name="commit">提交</string>
+    <string name="success_commit">提交成功！可在反馈记录中查看哦～</string>
+    <string name="error_email">需填写正确的邮箱哦～</string>
+    <string name="error_content">需要填写问题描述哦～</string>
+    <string name="handle_progress">处理进度</string>
+    <string name="response_time">反馈时间</string>
 </resources>

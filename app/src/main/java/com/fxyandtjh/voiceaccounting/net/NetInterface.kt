@@ -4,6 +4,7 @@ import com.fxyandtjh.voiceaccounting.net.response.AlbumDetail
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
 import com.fxyandtjh.voiceaccounting.net.response.NotesInfo
 import com.fxyandtjh.voiceaccounting.entity.VoiceInfo
+import com.fxyandtjh.voiceaccounting.net.response.BugInfo
 import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
 import com.fxyandtjh.voiceaccounting.net.response.TokenInfo
 import com.fxyandtjh.voiceaccounting.net.response.UserInfo
@@ -59,4 +60,12 @@ interface NetInterface {
 
     @POST("/check_update")
     suspend fun checkVersionUpdate(): BaseResponse<VersionInfo>
+
+    // BUG反馈
+    @POST("/commit_bug")
+    suspend fun uploadBugs(@Body body: Map<String, @JvmSuppressWildcards Any>): BaseResponse<Unit>
+
+    // 获取用户BUG反馈记录
+    @POST("/bug_history")
+    suspend fun getBugsHistory(): BaseResponse<List<BugInfo>>
 }

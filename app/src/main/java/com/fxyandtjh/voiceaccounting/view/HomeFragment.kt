@@ -18,7 +18,9 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeViewModel, FragHomeBinding>() {
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var mAdapter: AlbumAdapter
+    private val mAdapter: AlbumAdapter by lazy {
+        AlbumAdapter()
+    }
 
     override fun getViewMode(): HomeViewModel = viewModel
 
@@ -26,7 +28,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragHomeBinding>() {
         FragHomeBinding.inflate(inflater, parent, false)
 
     override fun setLayout() {
-        mAdapter = AlbumAdapter()
         context?.let {
             binding.rvPic.apply {
                 layoutManager = GridLayoutManager(context, 2)
@@ -38,7 +39,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragHomeBinding>() {
     override fun setObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel._albumList.collect {
-                mAdapter.data = it.toMutableList()
+                mAdapter.setNewInstance(it.toMutableList())
                 updateAlbumAndPicCount(it)
             }
         }

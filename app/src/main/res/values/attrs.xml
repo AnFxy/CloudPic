@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="isEnable" format="boolean"/>
+
     <declare-styleable name="LineItemView">
         <attr name="key" format="string"/>
         <attr name="value" format="string"/>
         <attr name="allowTypeChange" format="boolean"/>
-        <attr name="isEnable" format="boolean"/>
+        <attr name="isEnable"/>
         <attr name="type" format="enum">
             <enum name="icon" value="1"/>
             <enum name="edit" value="2" />
@@ -13,5 +15,11 @@
             <enum name="gender" value="5"/>
         </attr>
         <attr name="showLine" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="PicItemView">
+        <attr name="url" format="string"/>
+        <attr name="size" format="integer" />
+        <attr name="isEnable"/>
     </declare-styleable>
 </resources>

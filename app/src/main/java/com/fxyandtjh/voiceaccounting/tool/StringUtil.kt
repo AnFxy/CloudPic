@@ -1,5 +1,6 @@
 package com.fxyandtjh.voiceaccounting.tool
 
+import android.text.TextUtils
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -25,4 +26,10 @@ fun timeStampToDate(timeStamp: Long): String {
         e.printStackTrace()
         "-- -- --"
     }
+}
+
+// 校验邮箱是否合法
+fun String.isEmailValid(): Boolean {
+    return !TextUtils.isEmpty(this) &&
+            android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }

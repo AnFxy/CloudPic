@@ -54,11 +54,6 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
 
     override fun onResume() {
         super.onResume()
-        // UI重绘后 填充固定数据
-        binding.livVersion.value = BuildConfig.VERSION_NAME
-        // TODO 清除缓存功能暂时未实现
-        binding.livCache.value = "484KB"
-
         viewModel.obtainPersonalInformation()
     }
 
@@ -67,9 +62,18 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
     override fun getViewBinding(inflater: LayoutInflater, parent: ViewGroup?): FragMyBinding =
         FragMyBinding.inflate(inflater, parent, false)
 
+    override fun setLayout() {
+        binding.livVersion.value = viewModel.version
+        binding.livCache.value = viewModel.cacheValue
+    }
+
     override fun setObserver() {
         binding.livVersion.setLimitClickListener {
             viewModel.checkUpdate()
+        }
+
+        binding.livCache.setLimitClickListener {
+            ToastUtils.showShort(getText(R.string.no_cache))
         }
 
         binding.tvLogout.setLimitClickListener {
@@ -80,6 +84,10 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
         binding.livInfo.setLimitClickListener {
             // 点击进入个人信息页面
             navController.navigate(MyFragmentDirections.actionMyFragmentToUserInfoFragment())
+        }
+
+        binding.livBug.setLimitClickListener {
+            navController.navigate(MyFragmentDirections.actionMyFragmentToBugFragment())
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

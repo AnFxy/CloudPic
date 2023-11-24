@@ -21,6 +21,8 @@ class MyViewModel @Inject constructor(
     private val mainRepository: MainRepository,
     private val startupRepository: StartupRepository
 ) : BaseViewModel() {
+    val version = BuildConfig.VERSION_NAME
+    val cacheValue = "0KB"
 
     private val goLogin: MutableSharedFlow<Boolean> = MutableSharedFlow()
     val _goLogin: SharedFlow<Boolean> = goLogin
