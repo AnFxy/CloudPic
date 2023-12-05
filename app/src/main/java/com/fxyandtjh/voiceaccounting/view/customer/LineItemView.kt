@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.addTextChangedListener
 import com.blankj.utilcode.util.Utils
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
@@ -14,8 +13,9 @@ import com.fxyandtjh.voiceaccounting.tool.setVisible
 
 class LineItemView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
-    private val binding =
+    private val binding by lazy {
         LineItemCusBinding.inflate(LayoutInflater.from(context), this, true)
+    }
 
     var callBackClickHead: (() -> Unit)? = null
 
@@ -25,7 +25,8 @@ class LineItemView(context: Context, attrs: AttributeSet) : ConstraintLayout(con
             binding.tvKey.text = value
         }
 
-    var value: String = ""
+    var valueT: String = ""
+        get() = getTrueValueT()
         set(value) {
             field = value
             binding.tvValue.text = value
@@ -61,7 +62,7 @@ class LineItemView(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         type = style.getInt(R.styleable.LineItemView_type, 4)
         allowTypeChange = style.getBoolean(R.styleable.LineItemView_allowTypeChange, false)
         key = style.getString(R.styleable.LineItemView_key) ?: ""
-        value = style.getString(R.styleable.LineItemView_value) ?: ""
+        valueT = style.getString(R.styleable.LineItemView_valueT) ?: ""
         showLine = style.getBoolean(R.styleable.LineItemView_showLine, true)
         isEnable = style.getBoolean(R.styleable.LineItemView_isEnable, true)
         style.recycle()
@@ -71,17 +72,17 @@ class LineItemView(context: Context, attrs: AttributeSet) : ConstraintLayout(con
 
     private fun initView() {
         // 昵称编辑
-        binding.etEdit.addTextChangedListener {
-            val currentText = it?.toString() ?: ""
-            if (currentText != value) {
-                value = currentText
-            }
-        }
+//        binding.etEdit.addTextChangedListener {
+//            val currentText = it?.toString() ?: ""
+//            if (currentText != valueT) {
+//                valueT = currentText
+//            }
+//        }
         // 性别选择
         binding.genderContainer.setOnCheckedChangeListener { _, checkedId ->
             val currentValue = if (checkedId == R.id.gender_male) "1" else "0"
-            if (currentValue != value) {
-                value = currentValue
+            if (currentValue != valueT) {
+                valueT = currentValue
             }
         }
         // 头像选择
@@ -136,6 +137,16 @@ class LineItemView(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         // 性别选择是否可用
         binding.genderFemale.isEnabled = isEnable
         binding.genderMale.isEnabled = isEnable
+    }
+
+    private fun getTrueValueT(): String {
+        if (type == Type.Gender.value) {
+            return if (binding.genderMale.isChecked) "1" else "0"
+        }
+        if (type == Type.EDIT.value) {
+            return binding.etEdit.text.toString()
+        }
+        return valueT
     }
 
     enum class Type(val value: Int) {

@@ -105,20 +105,21 @@
         app:layout_constraintTop_toBottomOf="@id/container_account">
 
         <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
-            android:id="@+id/liv_version"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="@string/check_version"
-            app:value="google_1.0.0"
-            app:type="fixed"/>
-
-        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
             android:id="@+id/liv_cache"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:key="@string/clear_cache"
-            app:value="484KB"
+            app:valueT="484KB"
             app:type="fixed"/>
+
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="@string/check_version"
+            app:valueT="google_1.0.0"
+            app:type="fixed"/>
+
 
         <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
             android:id="@+id/liv_bug"

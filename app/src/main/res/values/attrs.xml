@@ -4,7 +4,7 @@
 
     <declare-styleable name="LineItemView">
         <attr name="key" format="string"/>
-        <attr name="value" format="string"/>
+        <attr name="valueT" format="string"/>
         <attr name="allowTypeChange" format="boolean"/>
         <attr name="isEnable"/>
         <attr name="type" format="enum">

@@ -61,8 +61,6 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
         FragMyBinding.inflate(inflater, parent, false)
 
     override fun setLayout() {
-        binding.livVersion.value = viewModel.version
-        binding.livCache.value = viewModel.cacheValue
 
         receiveCallBackDataFromLastFragment<Boolean>(key = Constants.USER_FRAG) {
             viewModel.obtainPersonalInformation()

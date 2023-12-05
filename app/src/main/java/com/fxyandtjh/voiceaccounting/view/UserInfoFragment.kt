@@ -130,8 +130,8 @@ class UserInfoFragment : BaseFragment<UserInfoViewModel, FragUserInfoBinding>() 
             if (viewModel._editAble.value) {
                 // 判断个性签名、昵称、性别是否修改
                 val currentDes = binding.etDes.text.toString()
-                val currentNickName = binding.livName.value
-                val currentGender = binding.livGender.value
+                val currentNickName = binding.livName.valueT
+                val currentGender = binding.livGender.valueT
                 viewModel.uploadPageDataToRemote(currentDes, currentNickName, currentGender)
             } else {
                 viewModel.updateEditAbleStatus()
@@ -140,7 +140,7 @@ class UserInfoFragment : BaseFragment<UserInfoViewModel, FragUserInfoBinding>() 
 
         binding.etDes.addTextChangedListener {
             val currentText = it?.toString() ?: ""
-            binding.livDes.value = "${currentText.length}/30"
+            binding.livDes.valueT = "${currentText.length}/30"
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -171,8 +171,8 @@ class UserInfoFragment : BaseFragment<UserInfoViewModel, FragUserInfoBinding>() 
             // 当用户点击头像时，弹出头像选择框
             // 判断个性签名、昵称、性别是否修改
             val currentDes = binding.etDes.text.toString()
-            val currentNickName = binding.livName.value
-            val currentGender = binding.livGender.value
+            val currentNickName = binding.livName.valueT
+            val currentGender = binding.livGender.valueT
             viewModel.updateEditDataToVM(currentDes,currentNickName, currentGender)
             albumDialog?.show()
         }
@@ -193,10 +193,10 @@ class UserInfoFragment : BaseFragment<UserInfoViewModel, FragUserInfoBinding>() 
     }
 
     private fun updatePageData(userInfo: UserInfo) {
-        binding.livHead.value = userInfo.headUrl
-        binding.livName.value = userInfo.name
-        binding.livGender.value = userInfo.gender.toString()
-        binding.livCreateTime.value = timeStampToDate(userInfo.registerTime)
+        binding.livHead.valueT = userInfo.headUrl
+        binding.livName.valueT = userInfo.name
+        binding.livGender.valueT = userInfo.gender.toString()
+        binding.livCreateTime.valueT = timeStampToDate(userInfo.registerTime)
         binding.etDes.setText(userInfo.des)
     }
 }
