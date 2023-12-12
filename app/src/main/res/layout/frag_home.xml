@@ -38,7 +38,7 @@
         android:id="@+id/rv_pic"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingHorizontal="8dp"
+        android:paddingHorizontal="5dp"
         android:background="@drawable/bg_blue_gradient"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/m_toolbar"/>

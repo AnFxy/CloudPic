@@ -65,7 +65,7 @@ android {
             applicationId 'com.perucredit.app'
 
             buildConfigField "String", "BAIDU_URL", '"http://vop.baidu.com"'
-            buildConfigField "String", "BASE_URL", '"http://172.17.10.51:8080"'
+            buildConfigField "String", "BASE_URL", '"http://172.17.10.56:8080"'
             buildConfigField "String", "TOKEN", '"24.0fa11405218e99a9d5ab312cdfbe093b.2592000.1697170230.282335-39260528"'
         }
         product{

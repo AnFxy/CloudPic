@@ -1,5 +1,6 @@
 package com.fxyandtjh.voiceaccounting.repository.impl
 
+import com.fxyandtjh.voiceaccounting.entity.NewAlbumInfo
 import com.fxyandtjh.voiceaccounting.net.NetInterface
 import com.fxyandtjh.voiceaccounting.net.response.AlbumDetail
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
@@ -16,11 +17,11 @@ class MainRepository @Inject constructor(
         return service.getAlbums().checkData()
     }
 
-    override suspend fun createAlbum(title: String, labelId: Int, faceUrl: String) {
+    override suspend fun createAlbum(newAlbumInfo: NewAlbumInfo) {
         val map = HashMap<String, Any>()
-        map["title"] = title
-        map["labelId"] = labelId
-        map["faceUrl"] = faceUrl
+        map["title"] = newAlbumInfo.title
+        map["labelId"] = newAlbumInfo.currentSelectTag.weight
+        map["faceUrl"] = newAlbumInfo.faceUrl
         service.createAlbum(map).checkError()
     }
 

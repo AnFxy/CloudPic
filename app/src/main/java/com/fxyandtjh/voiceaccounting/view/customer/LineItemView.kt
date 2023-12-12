@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.addTextChangedListener
 import com.blankj.utilcode.util.Utils
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
@@ -18,6 +19,8 @@ class LineItemView(context: Context, attrs: AttributeSet) : ConstraintLayout(con
     }
 
     var callBackClickHead: (() -> Unit)? = null
+
+    var callBackTextChanged: ((String) -> Unit)? = null
 
     var key: String = ""
         set(value) {
@@ -72,12 +75,9 @@ class LineItemView(context: Context, attrs: AttributeSet) : ConstraintLayout(con
 
     private fun initView() {
         // 昵称编辑
-//        binding.etEdit.addTextChangedListener {
-//            val currentText = it?.toString() ?: ""
-//            if (currentText != valueT) {
-//                valueT = currentText
-//            }
-//        }
+        binding.etEdit.addTextChangedListener {
+            callBackTextChanged?.invoke(it.toString() ?: "")
+        }
         // 性别选择
         binding.genderContainer.setOnCheckedChangeListener { _, checkedId ->
             val currentValue = if (checkedId == R.id.gender_male) "1" else "0"

@@ -66,4 +66,24 @@
     <string name="error_content">需要填写问题描述哦～</string>
     <string name="handle_progress">处理进度</string>
     <string name="response_time">反馈时间</string>
+    <string name="new_album">新建相册</string>
+    <string name="finish_create">完成创建</string>
+    <string name="normal">普通</string>
+    <string name="multi_people">多人</string>
+    <string name="baby">亲子</string>
+    <string name="travel">旅游</string>
+    <string name="lovers">情侣</string>
+    <string name="album_name">相册名称</string>
+    <string name="add_album_title">添加相册名称</string>
+    <string name="album_theme">主题</string>
+    <string name="multi_people_des">邀请闺蜜、好友、同学一起上传照片，沉淀美好回忆</string>
+    <string name="invite_friend">邀请小伙伴</string>
+    <string name="add">添加</string>
+    <string name="baby_des">上传宝宝照片，自动生成宝宝成长时光轴，共享家人一起关注宝宝动态</string>
+    <string name="birthDay">生日</string>
+    <string name="travel_des">上传旅途照片，自动生成足迹地图，记录旅途美好时光</string>
+    <string name="love_day">填写在一起的日期</string>
+    <string name="lovers_des">和恋人一起上传照片。沉淀在一起的每个瞬间</string>
+    <string name="face">封面</string>
+
 </resources>

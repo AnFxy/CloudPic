@@ -12,8 +12,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val mainRepository: MainRepository
 ) : BaseViewModel() {
-    private val initList = ArrayList<AlbumInfo>()
-    private val albumList: MutableStateFlow<List<AlbumInfo>> = MutableStateFlow(initList)
+    private val albumList: MutableStateFlow<List<AlbumInfo>> = MutableStateFlow(emptyList())
 
     var _albumList: StateFlow<List<AlbumInfo>> = albumList
 
@@ -22,19 +21,33 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getAlbumListFromRemote() {
-        launchUIWithDialog ({
-            initList.apply {
-                clear()
-                add(AlbumInfo(faceUrl = "", title = "", labelId = 0, total = 0, createTime = 0, id = ""))
-                addAll(mainRepository.getAlbumListFromRemote())
-            }
-            albumList.value = initList
-        },{
-            initList.apply {
-                clear()
-                add(AlbumInfo(faceUrl = "", title = "", labelId = 0, total = 0, createTime = 0, id = ""))
-            }
-            albumList.value = initList
+        launchUIWithDialog({
+            val tempList = ArrayList<AlbumInfo>()
+            tempList.add(
+                AlbumInfo(
+                    faceUrl = "",
+                    title = "",
+                    labelId = 0,
+                    total = 0,
+                    createTime = 0,
+                    id = ""
+                )
+            )
+            tempList.addAll(mainRepository.getAlbumListFromRemote())
+            albumList.value = tempList
+        }, {
+            val tempList = ArrayList<AlbumInfo>()
+            tempList.add(
+                AlbumInfo(
+                    faceUrl = "",
+                    title = "",
+                    labelId = 0,
+                    total = 0,
+                    createTime = 0,
+                    id = ""
+                )
+            )
+            albumList.value = tempList
         })
     }
 }

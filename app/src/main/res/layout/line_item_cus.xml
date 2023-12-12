@@ -61,6 +61,8 @@
         android:layout_marginHorizontal="15dp"
         android:paddingVertical="4dp"
         android:paddingHorizontal="10dp"
+        android:minWidth="80dp"
+        android:maxLength="9"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tv_value"/>

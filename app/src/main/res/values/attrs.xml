@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="isEnable" format="boolean"/>
+    <attr name="key" format="string"/>
 
     <declare-styleable name="LineItemView">
-        <attr name="key" format="string"/>
+        <attr name="key"/>
         <attr name="valueT" format="string"/>
         <attr name="allowTypeChange" format="boolean"/>
         <attr name="isEnable"/>
@@ -21,5 +22,13 @@
         <attr name="url" format="string"/>
         <attr name="size" format="integer" />
         <attr name="isEnable"/>
+    </declare-styleable>
+
+    <declare-styleable name="AlbumThemeItemView">
+        <attr name="key"/>
+        <attr name="isEnable"/>
+        <attr name="isChecked" format="boolean"/>
+        <attr name="activeIconId" format="reference" />
+        <attr name="inActiveIconId" format="reference"/>
     </declare-styleable>
 </resources>

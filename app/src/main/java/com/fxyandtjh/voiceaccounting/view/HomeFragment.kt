@@ -5,21 +5,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.fxyandtjh.voiceaccounting.adapter.AlbumAdapter
 import com.fxyandtjh.voiceaccounting.base.BaseFragment
+import com.fxyandtjh.voiceaccounting.base.Constants
+import com.fxyandtjh.voiceaccounting.base.receiveCallBackDataFromLastFragment
 import com.fxyandtjh.voiceaccounting.databinding.FragHomeBinding
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
 import com.fxyandtjh.voiceaccounting.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeViewModel, FragHomeBinding>() {
     private val viewModel: HomeViewModel by viewModels()
     private val mAdapter: AlbumAdapter by lazy {
-        AlbumAdapter()
+        AlbumAdapter { albumInfo ->
+            // 点击后要判断是进入相册详情页面还是 进入新建相册页面
+            handleClickAlbum(albumInfo)
+        }
     }
 
     override fun getViewMode(): HomeViewModel = viewModel
@@ -33,6 +36,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragHomeBinding>() {
                 layoutManager = GridLayoutManager(context, 2)
                 adapter = mAdapter
             }
+        }
+
+        receiveCallBackDataFromLastFragment<Boolean>(key = Constants.NEW_ALBUM) {
+            viewModel.getAlbumListFromRemote()
         }
     }
 
@@ -49,5 +56,11 @@ class HomeFragment : BaseFragment<HomeViewModel, FragHomeBinding>() {
         val albumsCount = if (albums.isEmpty()) 0 else albums.size - 1
         val picSize = albums.sumOf { item -> item.total }
         binding.tvCount.text = "${albumsCount}相册 ${picSize}图片"
+    }
+
+    private fun handleClickAlbum(albumInfo: AlbumInfo) {
+        if (albumInfo.id == "") {
+            navController.navigate(HomeFragmentDirections.actionHomeFragmentToNewAlbumFragment())
+        }
     }
 }

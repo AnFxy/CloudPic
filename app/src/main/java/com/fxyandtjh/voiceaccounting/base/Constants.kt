@@ -6,5 +6,6 @@ class Constants {
         val CUS_QQ_NO = "2569658002"
         val SP_NAME = "my_sp_name"
         val USER_FRAG = "user_frag"
+        val NEW_ALBUM = "new_album"
     }
 }
