@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_homeFragment_to_newAlbumFragment"
             app:destination="@id/newAlbumFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_albumFragment"
+            app:destination="@id/albumFragment" />
     </fragment>
     <fragment
         android:id="@+id/notesFragment"
@@ -47,4 +50,8 @@
         android:id="@+id/newAlbumFragment"
         android:name="com.fxyandtjh.voiceaccounting.view.NewAlbumFragment"
         android:label="NewAlbumFragment" />
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.fxyandtjh.voiceaccounting.view.AlbumFragment"
+        android:label="AlbumFragment" />
 </navigation>

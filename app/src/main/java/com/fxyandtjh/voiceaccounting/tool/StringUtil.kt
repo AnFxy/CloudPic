@@ -3,7 +3,12 @@ package com.fxyandtjh.voiceaccounting.tool
 import android.text.TextUtils
 import java.lang.Exception
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 fun encryptionPhoneNumber(phoneNumber: String): String {
     return if (phoneNumber.length >= 6) {
@@ -22,6 +27,30 @@ fun timeStampToDate(timeStamp: Long): String {
         val date = Date(timeStamp)
         val sdf = SimpleDateFormat("yyyy-MM-dd")
         sdf.format(date)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        "-- -- --"
+    }
+}
+
+// 时间转相册日期
+fun timeStampToAlbumDate(timeStamp: Long): String {
+    return try {
+        val currentTime = LocalDate.now()
+        val targetTime =
+            Instant.ofEpochMilli(timeStamp).atZone(ZoneId.systemDefault()).toLocalDate()
+        var targetDateText = ""
+        // 判断 今天、昨天  今年
+        if (currentTime.year == targetTime.year && currentTime.dayOfYear == targetTime.dayOfYear) {
+            targetDateText = "今天"
+        } else if (currentTime.year == targetTime.year && currentTime.dayOfYear == targetTime.dayOfYear + 1) {
+            targetDateText = "昨天"
+        } else {
+            val date = Date(timeStamp)
+            val sdf = SimpleDateFormat("yyyy-MM-dd")
+            targetDateText = sdf.format(date)
+        }
+        targetDateText
     } catch (e: Exception) {
         e.printStackTrace()
         "-- -- --"

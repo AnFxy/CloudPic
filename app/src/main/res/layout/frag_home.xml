@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/white_70"
+        android:background="#FFFFFF"
         app:menu="@menu/cus_menu">
 
         <LinearLayout
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingHorizontal="5dp"
-        android:background="@drawable/bg_blue_gradient"
+        android:background="@drawable/bg_tran_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/m_toolbar"/>
 

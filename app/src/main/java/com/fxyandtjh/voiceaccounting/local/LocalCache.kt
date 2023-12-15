@@ -1,5 +1,6 @@
 package com.fxyandtjh.voiceaccounting.local
 
+import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
 import com.fxyandtjh.voiceaccounting.net.response.UserInfo
 import com.google.gson.reflect.TypeToken
 
@@ -27,6 +28,20 @@ class LocalCache {
                 isBlack = 0
             ),
             object : TypeToken<UserInfo>() {}.type
+        )
+
+        // 当前相册信息
+        var currentAlbum: AlbumInfo by SPSet<AlbumInfo>(
+            SPKeys.CURRENT_ALBUM,
+            AlbumInfo(
+                faceUrl = "",
+                title = "",
+                labelId = 0,
+                total = 0,
+                createTime = 0,
+                id = ""
+            ),
+            object : TypeToken<AlbumInfo>() {}.type
         )
 
         fun clearALLCache() {

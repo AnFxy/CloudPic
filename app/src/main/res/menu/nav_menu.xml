@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeFragment"
-        android:icon="@mipmap/home"
+        android:icon="@mipmap/album"
         android:title="@string/album" />
     <item
         android:id="@+id/notesFragment"
-        android:icon="@mipmap/notes"
-        android:title="@string/notes" />
+        android:icon="@mipmap/robot"
+        android:title="@string/ai_cut" />
     <item
         android:id="@+id/myFragment"
         android:icon="@mipmap/setting"

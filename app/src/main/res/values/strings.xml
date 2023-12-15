@@ -2,6 +2,7 @@
     <string name="app_name">小鲸鱼相册</string>
     <string name="album">相册</string>
     <string name="notes">笔记</string>
+    <string name="ai_cut">AI剪</string>
     <string name="mine">我的</string>
     <string name="setting">设置</string>
     <string name="save">保存</string>
@@ -85,5 +86,10 @@
     <string name="love_day">填写在一起的日期</string>
     <string name="lovers_des">和恋人一起上传照片。沉淀在一起的每个瞬间</string>
     <string name="face">封面</string>
+    <string name="default_album_name">----</string>
+    <string name="no_select_pic">取消选择</string>
+    <string name="error_select">选择图片出错</string>
+    <string name="all_upload_success">全部上传成功！</string>
+    <string name="developing">正在马不停蹄地开发中...</string>
 
 </resources>

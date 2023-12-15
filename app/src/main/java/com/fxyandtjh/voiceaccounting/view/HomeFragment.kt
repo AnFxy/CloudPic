@@ -1,5 +1,6 @@
 package com.fxyandtjh.voiceaccounting.view
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
@@ -10,8 +11,12 @@ import com.fxyandtjh.voiceaccounting.base.BaseFragment
 import com.fxyandtjh.voiceaccounting.base.Constants
 import com.fxyandtjh.voiceaccounting.base.receiveCallBackDataFromLastFragment
 import com.fxyandtjh.voiceaccounting.databinding.FragHomeBinding
+import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
+import com.fxyandtjh.voiceaccounting.tool.CustomItemDecoration
+import com.fxyandtjh.voiceaccounting.tool.dip2px
 import com.fxyandtjh.voiceaccounting.viewmodel.HomeViewModel
+import com.huantansheng.easyphotos.EasyPhotos
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -30,10 +35,17 @@ class HomeFragment : BaseFragment<HomeViewModel, FragHomeBinding>() {
     override fun getViewBinding(inflater: LayoutInflater, parent: ViewGroup?): FragHomeBinding =
         FragHomeBinding.inflate(inflater, parent, false)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // 系统图册预加载
+        EasyPhotos.preLoad(context)
+    }
+
     override fun setLayout() {
         context?.let {
             binding.rvPic.apply {
                 layoutManager = GridLayoutManager(context, 2)
+                addItemDecoration(CustomItemDecoration(dip2px(20f)))
                 adapter = mAdapter
             }
         }
@@ -61,6 +73,9 @@ class HomeFragment : BaseFragment<HomeViewModel, FragHomeBinding>() {
     private fun handleClickAlbum(albumInfo: AlbumInfo) {
         if (albumInfo.id == "") {
             navController.navigate(HomeFragmentDirections.actionHomeFragmentToNewAlbumFragment())
+        } else {
+            LocalCache.currentAlbum = albumInfo
+            navController.navigate(HomeFragmentDirections.actionHomeFragmentToAlbumFragment())
         }
     }
 }
