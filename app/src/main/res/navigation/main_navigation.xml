@@ -53,5 +53,25 @@
     <fragment
         android:id="@+id/albumFragment"
         android:name="com.fxyandtjh.voiceaccounting.view.AlbumFragment"
-        android:label="AlbumFragment" />
+        android:label="AlbumFragment" >
+        <action
+            android:id="@+id/action_albumFragment_to_picDetailFragment"
+            app:destination="@id/picDetailFragment">
+            <argument
+                android:name="picDetailArgs"
+                app:argType="com.fxyandtjh.voiceaccounting.entity.PicsDetail"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/picDetailFragment"
+        android:name="com.fxyandtjh.voiceaccounting.view.PicDetailFragment"
+        android:label="PicDetailFragment" >
+        <argument
+            android:name="picDetailArgs"
+            app:argType="com.fxyandtjh.voiceaccounting.entity.PicsDetail"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

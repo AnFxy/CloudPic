@@ -7,5 +7,6 @@ class Constants {
         val SP_NAME = "my_sp_name"
         val USER_FRAG = "user_frag"
         val NEW_ALBUM = "new_album"
+        val PIC_URL = "pic_url"
     }
 }

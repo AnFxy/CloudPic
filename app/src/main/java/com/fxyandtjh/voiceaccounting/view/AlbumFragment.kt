@@ -1,6 +1,5 @@
 package com.fxyandtjh.voiceaccounting.view
 
-import android.graphics.Color
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,13 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
 import com.fxyandtjh.voiceaccounting.R
-import com.fxyandtjh.voiceaccounting.adapter.AlbumAdapter
 import com.fxyandtjh.voiceaccounting.adapter.PicAdapter
 import com.fxyandtjh.voiceaccounting.base.BaseFragment
 import com.fxyandtjh.voiceaccounting.base.Constants
@@ -22,12 +19,12 @@ import com.fxyandtjh.voiceaccounting.base.FragDestroyCallBack
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragAlbumBinding
 import com.fxyandtjh.voiceaccounting.entity.PicFile
+import com.fxyandtjh.voiceaccounting.entity.PicsDetail
 import com.fxyandtjh.voiceaccounting.entity.Type
 import com.fxyandtjh.voiceaccounting.tool.GlideEngine
 import com.fxyandtjh.voiceaccounting.tool.HandlePhoto
 import com.fxyandtjh.voiceaccounting.tool.PicDividerUtil
 import com.fxyandtjh.voiceaccounting.tool.PicLoadUtil
-import com.fxyandtjh.voiceaccounting.tool.dip2px
 import com.fxyandtjh.voiceaccounting.viewmodel.AlbumViewModel
 import com.huantansheng.easyphotos.Builder.AlbumBuilder
 import com.huantansheng.easyphotos.EasyPhotos
@@ -38,7 +35,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileInputStream
-import java.util.ArrayList
 import java.util.Locale
 
 @AndroidEntryPoint
@@ -47,10 +43,28 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
     private val viewModel: AlbumViewModel by viewModels()
 
     private val mAdapter: PicAdapter by lazy {
-        PicAdapter { picInfo ->
+        val headerView = LayoutInflater.from(context).inflate(R.layout.head_pic, null, false)
+        val faceView = headerView.findViewById<ImageView>(R.id.iv_face)
+        val textView = headerView.findViewById<TextView>(R.id.tv_count_pic)
+        textView.text = "${viewModel._albumInfo.value.total}张照片"
+        PicLoadUtil.instance.loadPic(
+            context = context,
+            url = viewModel._albumInfo.value.faceUrl,
+            targetView = faceView
+        )
+        val tempAdapter = PicAdapter { selectItem ->
             // 点击后显示大图
-
+            navController.navigate(
+                AlbumFragmentDirections.actionAlbumFragmentToPicDetailFragment(
+                    PicsDetail(
+                        selectedIndex = viewModel._picList.value.indexOf(selectItem),
+                        picList = viewModel._picList.value
+                    )
+                )
+            )
         }
+        tempAdapter.addHeaderView(headerView)
+        tempAdapter
     }
 
     private val albumBuilder: AlbumBuilder by lazy {
@@ -72,22 +86,11 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
         FragAlbumBinding.inflate(inflater, parent, false)
 
     override fun setLayout() {
-        val headView = LayoutInflater.from(context).inflate(R.layout.head_pic, null, false)
-        val faceView = headView.findViewById<ImageView>(R.id.iv_face)
-        val textView = headView.findViewById<TextView>(R.id.tv_count_pic)
-        textView.text = "${viewModel._albumInfo.value.total}张照片"
-        PicLoadUtil.instance.loadPic(
-            context = context,
-            url = viewModel._albumInfo.value.faceUrl,
-            targetView = faceView
-        )
-
         context?.let {
             binding.rvPics.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = mAdapter
             }
-            mAdapter.addHeaderView(headView)
         }
 
         specialBack = {
