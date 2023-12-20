@@ -77,6 +77,12 @@
         <item name="android:textColor">@color/enable_line_color</item>
     </style>
 
+    <style name="TextGrayBold12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/gray_text</item>
+    </style>
+
     <style name="TextWhiteBold12">
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>

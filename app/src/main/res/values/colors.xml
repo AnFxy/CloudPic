@@ -15,6 +15,7 @@
     <color name="primary_blue">#FECFEF</color>
     <color name="primary_pink">#FF9A9E</color>
     <color name="disable_line_color">#999999</color>
+    <color name="gray_text">#515151</color>
     <color name="enable_line_color">#333333</color>
     <color name="gray">#DDDDDD</color>
 

@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.blankj.utilcode.constant.PermissionConstants
+import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.adapter.PicDetailPagerAdapter
@@ -18,10 +21,14 @@ import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragPicDetailBinding
 import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
+import com.fxyandtjh.voiceaccounting.tool.HandlePhoto
 import com.fxyandtjh.voiceaccounting.tool.PicDividerUtil
+import com.fxyandtjh.voiceaccounting.tool.SimplePermissionCallBack
 import com.fxyandtjh.voiceaccounting.tool.setVisible
+import com.fxyandtjh.voiceaccounting.tool.setVisibleWithUnVisual
 import com.fxyandtjh.voiceaccounting.viewmodel.PicDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PicDetailFragment : BaseFragment<PicDetailViewModel, FragPicDetailBinding>() {
@@ -35,18 +42,35 @@ class PicDetailFragment : BaseFragment<PicDetailViewModel, FragPicDetailBinding>
             tempDialog.setViewState<ImageView>(R.id.btn_close) {
                 setLimitClickListener {
                     tempDialog.dismiss()
-                    binding.containerBottom.setVisible(true)
+                    binding.btnMore.setVisibleWithUnVisual(true)
                 }
             }
             tempDialog.setViewState<LinearLayout>(R.id.btn_exchange) {
                 setLimitClickListener {
                     // 操作对应的fragment的imageView进行旋转
                     try {
-                        val targetFragment = pagerAdapter.mFragments[viewModel.picData.selectedIndex]
+                        val targetFragment =
+                            pagerAdapter.mFragments[viewModel.picData.selectedIndex]
                         targetFragment.rotateImage()
                     } catch (e: Exception) {
                         ToastUtils.showShort(getText(R.string.error_rotate))
                     }
+                }
+            }
+            tempDialog.setViewState<LinearLayout>(R.id.btn_download) {
+                setLimitClickListener {
+                    // 调用存储权限
+                    PermissionUtils.permission(
+                        PermissionConstants.STORAGE
+                    ).callback(SimplePermissionCallBack {
+                        // 下载对应的图片
+                        try {
+                            val targetUrl = orderPicList[viewModel.picData.selectedIndex]
+                            viewModel.downloadPicture(targetUrl.imageUrl)
+                        } catch (e: Exception) {
+                            ToastUtils.showShort(getText(R.string.error_download))
+                        }
+                    }).request()
                 }
             }
             tempDialog
@@ -106,8 +130,19 @@ class PicDetailFragment : BaseFragment<PicDetailViewModel, FragPicDetailBinding>
         })
 
         binding.btnMore.setLimitClickListener {
-            binding.containerBottom.setVisible(false)
+            binding.btnMore.setVisibleWithUnVisual(true)
             moreDialog?.show()
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel._downLoadEvent.collect { isSuccess ->
+                ToastUtils.showShort(
+                    if (isSuccess)
+                        getText(R.string.success_download)
+                    else
+                        getText(R.string.error_download)
+                )
+            }
         }
     }
 
