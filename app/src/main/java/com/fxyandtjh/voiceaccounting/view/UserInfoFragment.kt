@@ -24,7 +24,6 @@ import com.fxyandtjh.voiceaccounting.base.Constants
 import com.fxyandtjh.voiceaccounting.base.FragDestroyCallBack
 import com.fxyandtjh.voiceaccounting.base.RxDialogSet
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
-import com.fxyandtjh.voiceaccounting.base.setLimitMenuClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragUserInfoBinding
 import com.fxyandtjh.voiceaccounting.net.response.UserInfo
 import com.fxyandtjh.voiceaccounting.tool.HandlePhoto
@@ -173,7 +172,7 @@ class UserInfoFragment : BaseFragment<UserInfoViewModel, FragUserInfoBinding>() 
             val currentDes = binding.etDes.text.toString()
             val currentNickName = binding.livName.valueT
             val currentGender = binding.livGender.valueT
-            viewModel.updateEditDataToVM(currentDes,currentNickName, currentGender)
+            viewModel.updateEditDataToVM(currentDes, currentNickName, currentGender)
             albumDialog?.show()
         }
     }

@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class RetrofitConfig private constructor(){
+class RetrofitConfig private constructor() {
     companion object {
         val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
             RetrofitConfig()

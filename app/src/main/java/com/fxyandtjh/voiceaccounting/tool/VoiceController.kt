@@ -3,7 +3,6 @@ package com.fxyandtjh.voiceaccounting.tool
 import android.media.MediaRecorder
 import android.text.format.DateFormat
 import com.blankj.utilcode.util.Utils
-import java.lang.Exception
 import java.util.Calendar
 import java.util.Locale
 
@@ -30,11 +29,16 @@ class VoiceController private constructor() {
                 // 设置音频的编码格式
                 setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
                 // 设置录制文件所在路径
-                fileName = "${DateFormat.format("yyyyMMdd_HHmmss", Calendar.getInstance(Locale.CHINA))}.m4a"
+                fileName = "${
+                    DateFormat.format(
+                        "yyyyMMdd_HHmmss",
+                        Calendar.getInstance(Locale.CHINA)
+                    )
+                }.m4a"
 
-                val audioSaveDir=Utils.getApp().filesDir.absolutePath
+                val audioSaveDir = Utils.getApp().filesDir.absolutePath
 
-                val targetPath ="$audioSaveDir/$fileName"
+                val targetPath = "$audioSaveDir/$fileName"
                 setOutputFile(targetPath)
                 // 开始录制
                 prepare()

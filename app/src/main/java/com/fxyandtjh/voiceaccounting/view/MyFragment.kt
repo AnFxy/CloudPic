@@ -2,7 +2,6 @@ package com.fxyandtjh.voiceaccounting.view
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -61,7 +60,6 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
         FragMyBinding.inflate(inflater, parent, false)
 
     override fun setLayout() {
-
         receiveCallBackDataFromLastFragment<Boolean>(key = Constants.USER_FRAG) {
             viewModel.obtainPersonalInformation()
         }
@@ -119,8 +117,13 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
                 }?.setViewState<LinearLayout>(R.id.container_update) {
                     setLimitClickListener {
                         // 根据下载链接启动 系统浏览器下载
-                        if(it.downloadLink != null) {
-                            context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.downloadLink)))
+                        if (it.downloadLink != null) {
+                            context?.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse(it.downloadLink)
+                                )
+                            )
                             // 手动检测更新的我们让他可以手动关闭
                             updateDialog?.dismiss()
                         }

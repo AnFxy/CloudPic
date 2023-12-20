@@ -1,7 +1,7 @@
 package com.fxyandtjh.voiceaccounting.inject
 
-import com.fxyandtjh.voiceaccounting.net.NetInterface
 import com.fxyandtjh.voiceaccounting.impl.ServiceImpl
+import com.fxyandtjh.voiceaccounting.net.NetInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

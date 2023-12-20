@@ -25,15 +25,19 @@ class ErrorHandleUtil {
                     is SSLHandshakeException -> {
                         "网络异常！"
                     }
+
                     is ParseException -> {       // ParseException异常表明请求成功，但是数据不正确
                         it.message ?: "数据解析错误!"   //msg为空，显示code
                     }
+
                     is HttpException -> {
                         "网络异常！"
                     }
+
                     is IOException -> {
                         "文件读写异常！"
                     }
+
                     else -> {
                         it.message ?: "未知错误!"
                     }

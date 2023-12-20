@@ -4,12 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.blankj.utilcode.util.ViewUtils
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.ItemBugPicBinding
 import com.fxyandtjh.voiceaccounting.tool.PicLoadUtil
-import com.fxyandtjh.voiceaccounting.tool.dip2px
 import com.fxyandtjh.voiceaccounting.tool.setVisible
 
 class PicItemView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {

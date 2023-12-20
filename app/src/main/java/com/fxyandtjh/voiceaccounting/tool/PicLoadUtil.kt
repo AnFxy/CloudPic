@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
-import android.os.Environment
 import android.provider.MediaStore
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -51,7 +50,7 @@ class PicLoadUtil private constructor() {
     fun saveImageToGallery(context: Context, bmp: Bitmap) {
         // 首先保存图片
         val storePath =
-           context.getExternalFilesDir("image/*")?.absolutePath + File.separator + "CloudAlbum" + File.separator
+            context.getExternalFilesDir("image/*")?.absolutePath + File.separator + "CloudAlbum" + File.separator
         val appDir = File(storePath)
         if (!appDir.exists()) {
             appDir.mkdir()

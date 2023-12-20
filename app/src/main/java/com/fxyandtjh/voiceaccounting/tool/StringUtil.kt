@@ -1,14 +1,11 @@
 package com.fxyandtjh.voiceaccounting.tool
 
 import android.text.TextUtils
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
-import java.util.Calendar
 import java.util.Date
-import java.util.Locale
 
 fun encryptionPhoneNumber(phoneNumber: String): String {
     return if (phoneNumber.length >= 6) {

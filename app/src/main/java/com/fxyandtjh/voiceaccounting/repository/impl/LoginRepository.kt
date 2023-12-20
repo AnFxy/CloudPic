@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class LoginRepository @Inject constructor(
     private val service: NetInterface
-): ILoginRepository {
+) : ILoginRepository {
 
     override suspend fun doLogin(loginInfo: LoginInfo): TokenInfo {
         val map = HashMap<String, String>()
@@ -31,5 +31,4 @@ class LoginRepository @Inject constructor(
         map["token"] = token
         service.doLogout(map).checkError()
     }
-
 }

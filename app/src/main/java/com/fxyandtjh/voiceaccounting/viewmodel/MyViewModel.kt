@@ -47,7 +47,7 @@ class MyViewModel @Inject constructor(
         obtainPersonalInformation()
     }
 
-    fun doLogout () {
+    fun doLogout() {
         launchUIWithDialog {
             loginRepository.doLogout(phoneNumber = LocalCache.phoneNumber, token = LocalCache.token)
             // 登出成功后，清除本地缓存，跳转到登录页面
@@ -56,7 +56,7 @@ class MyViewModel @Inject constructor(
         }
     }
 
-    fun obtainPersonalInformation () {
+    fun obtainPersonalInformation() {
         launchUI {
             userInfoData.value = mainRepository.obtainUserInformation()
             // 将用户信息保存到本地

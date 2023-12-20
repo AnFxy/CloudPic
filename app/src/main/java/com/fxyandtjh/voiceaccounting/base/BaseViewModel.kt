@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected val loading : MutableSharedFlow<Boolean> = MutableSharedFlow()
+    protected val loading: MutableSharedFlow<Boolean> = MutableSharedFlow()
     val _loading: SharedFlow<Boolean> = loading
 
     //运行在UI线程的协程
@@ -32,7 +32,7 @@ abstract class BaseViewModel : ViewModel() {
 
     fun launchUIWithDialog(block: suspend CoroutineScope.() -> Unit) = launchUIWithDialog(block) {}
 
-    fun launchUI (
+    fun launchUI(
         block: suspend CoroutineScope.() -> Unit,
         onError: suspend CoroutineScope.() -> Unit
     ) = viewModelScope.launch {

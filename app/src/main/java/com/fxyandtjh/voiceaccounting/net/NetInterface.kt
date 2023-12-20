@@ -1,10 +1,10 @@
 package com.fxyandtjh.voiceaccounting.net
 
+import com.fxyandtjh.voiceaccounting.entity.VoiceInfo
 import com.fxyandtjh.voiceaccounting.net.response.AlbumDetail
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
-import com.fxyandtjh.voiceaccounting.net.response.NotesInfo
-import com.fxyandtjh.voiceaccounting.entity.VoiceInfo
 import com.fxyandtjh.voiceaccounting.net.response.BugInfo
+import com.fxyandtjh.voiceaccounting.net.response.NotesInfo
 import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
 import com.fxyandtjh.voiceaccounting.net.response.TokenInfo
 import com.fxyandtjh.voiceaccounting.net.response.UserInfo

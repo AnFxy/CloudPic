@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val repository: StartupRepository
-): BaseViewModel() {
+) : BaseViewModel() {
     private val goHomePage: MutableSharedFlow<Boolean> = MutableSharedFlow()
     val _goHomePage: SharedFlow<Boolean> = goHomePage
 

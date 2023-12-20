@@ -10,7 +10,6 @@ import com.fxyandtjh.voiceaccounting.base.BaseFragment
 import com.fxyandtjh.voiceaccounting.databinding.FragBugHisBinding
 import com.fxyandtjh.voiceaccounting.viewmodel.BugHisViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint

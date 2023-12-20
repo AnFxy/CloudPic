@@ -21,7 +21,6 @@ import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragPicDetailBinding
 import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
-import com.fxyandtjh.voiceaccounting.tool.HandlePhoto
 import com.fxyandtjh.voiceaccounting.tool.PicDividerUtil
 import com.fxyandtjh.voiceaccounting.tool.SimplePermissionCallBack
 import com.fxyandtjh.voiceaccounting.tool.setVisible

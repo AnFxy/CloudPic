@@ -5,14 +5,16 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.blankj.utilcode.util.Utils
 import com.fxyandtjh.voiceaccounting.base.Constants
-import com.fxyandtjh.voiceaccounting.viewmodel.JsonToBean
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-class SPSet<T>(private val key: String, private val defaultValue: T, private val type: Type = Any::class.java) : ReadWriteProperty<Any?, T> {
+class SPSet<T>(
+    private val key: String,
+    private val defaultValue: T,
+    private val type: Type = Any::class.java
+) : ReadWriteProperty<Any?, T> {
     companion object {
         val preference: SharedPreferences by lazy {
             Utils.getApp().getSharedPreferences(

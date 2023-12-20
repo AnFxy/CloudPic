@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.huantansheng.easyphotos.engine.ImageEngine
 
-class GlideEngine private constructor(): ImageEngine {
+class GlideEngine private constructor() : ImageEngine {
     companion object {
         val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
             GlideEngine()

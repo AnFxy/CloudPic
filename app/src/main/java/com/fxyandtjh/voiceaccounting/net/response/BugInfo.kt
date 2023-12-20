@@ -1,6 +1,6 @@
 package com.fxyandtjh.voiceaccounting.net.response
 
-data class BugInfo (
+data class BugInfo(
     val type: Int, // 类型 优化0|BUG1
     val content: String,
     val images: List<String>,

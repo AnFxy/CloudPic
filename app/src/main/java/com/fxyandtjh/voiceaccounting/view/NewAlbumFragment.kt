@@ -182,18 +182,22 @@ class NewAlbumFragment : BaseFragment<NewAlbumViewModel, FragNewAblumBinding>() 
                 binding.tvDes.text = getText(R.string.multi_people_des)
                 binding.livTheme.valueT = "${getText(R.string.multi_people)}相册"
             }
+
             Type.BABY -> {
                 binding.tvDes.text = getText(R.string.baby_des)
                 binding.livTheme.valueT = "${getText(R.string.baby)}相册"
             }
+
             Type.TRAVEL -> {
                 binding.tvDes.text = getText(R.string.travel_des)
                 binding.livTheme.valueT = "${getText(R.string.travel)}相册"
             }
+
             Type.LOVERS -> {
                 binding.tvDes.text = getText(R.string.lovers_des)
                 binding.livTheme.valueT = "${getText(R.string.lovers)}相册"
             }
+
             else -> {
                 binding.tvDes.text = ""
                 binding.livTheme.valueT = "${getText(R.string.normal)}相册"

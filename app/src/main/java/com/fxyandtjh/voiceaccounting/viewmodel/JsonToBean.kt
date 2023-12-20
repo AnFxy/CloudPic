@@ -19,6 +19,6 @@ class JsonToBean {
 
     inline fun <reified T> toBean(json: String): T? {
         val typeT = object : TypeToken<T>() {}.type
-        return Gson ().fromJson2<T>(json, typeT)
+        return Gson().fromJson2<T>(json, typeT)
     }
 }

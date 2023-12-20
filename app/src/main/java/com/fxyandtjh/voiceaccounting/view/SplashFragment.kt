@@ -6,14 +6,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.blankj.utilcode.util.PhoneUtils
 import com.fxyandtjh.voiceaccounting.BuildConfig
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.base.BaseFragment
-import com.fxyandtjh.voiceaccounting.base.Constants
 import com.fxyandtjh.voiceaccounting.base.RxDialogSet
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragSplashBinding
@@ -64,8 +61,13 @@ class SplashFragment : BaseFragment<SplashViewModel, FragSplashBinding>() {
                 }?.setViewState<LinearLayout>(R.id.container_update) {
                     setLimitClickListener {
                         // 根据下载链接启动 系统浏览器下载
-                        if(it.downloadLink != null) {
-                            context?.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.downloadLink)))
+                        if (it.downloadLink != null) {
+                            context?.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse(it.downloadLink)
+                                )
+                            )
                         }
                     }
                 }?.setViewState<TextView>(R.id.tv_close) {

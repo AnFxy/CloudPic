@@ -123,11 +123,12 @@ class BugFragment : BaseFragment<BugViewModel, FragBugBinding>() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel._goBackEvent.collect { type ->
-                when(type) {
+                when (type) {
                     TYPE.GO_BACK.value -> {
                         ToastUtils.showShort(getText(R.string.success_commit))
                         resetInput()
                     }
+
                     TYPE.ERROR_EMAIL.value -> ToastUtils.showShort(getText(R.string.error_email))
                     TYPE.ERROR_CONTENT.value -> ToastUtils.showShort(getText(R.string.error_content))
                 }

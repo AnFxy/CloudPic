@@ -45,6 +45,7 @@ class UserInfoViewModel @Inject constructor(
             updateEvent.emit(true)
         }
     }
+
     // 上传图片
     fun uploadPicture(base64Str: String, type: String) {
         launchUIWithDialog {
