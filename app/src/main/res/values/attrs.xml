@@ -31,4 +31,6 @@
         <attr name="activeIconId" format="reference" />
         <attr name="inActiveIconId" format="reference"/>
     </declare-styleable>
+
+    <declare-styleable name="ZoomImageView"/>
 </resources>

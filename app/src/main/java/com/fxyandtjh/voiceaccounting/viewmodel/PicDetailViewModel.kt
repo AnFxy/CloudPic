@@ -12,4 +12,10 @@ class PicDetailViewModel @Inject constructor() : BaseViewModel() {
         picList = emptyList(),
         selectedIndex = -1
     )
+
+    var fullScreen: Boolean = false
+
+    fun updateSelectedIndex(currentIndex: Int)  {
+        picData = picData.copy(selectedIndex = currentIndex)
+    }
 }

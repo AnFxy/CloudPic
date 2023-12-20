@@ -91,5 +91,9 @@
     <string name="error_select">选择图片出错</string>
     <string name="all_upload_success">全部上传成功！</string>
     <string name="developing">正在马不停蹄地开发中...</string>
+    <string name="more">更多</string>
+    <string name="exchange">旋转</string>
+    <string name="download">下载</string>
+    <string name="error_rotate">旋转出错了，请稍后重试</string>
 
 </resources>

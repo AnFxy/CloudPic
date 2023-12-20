@@ -161,7 +161,7 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
         val btnResourceID = when (labelId) {
             Type.MULTI.weight -> R.mipmap.add_multi
             Type.BABY.weight -> R.mipmap.add_baby
-            Type.TRAVEL.weight -> R.mipmap.add_travel
+            Type.TRAVEL.weight -> R.mipmap.add_multi
             Type.LOVERS.weight -> R.mipmap.add_lovers
             else -> R.mipmap.add_normal
         }

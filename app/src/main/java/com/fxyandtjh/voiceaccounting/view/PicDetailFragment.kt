@@ -1,16 +1,25 @@
 package com.fxyandtjh.voiceaccounting.view
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
+import com.blankj.utilcode.util.ToastUtils
+import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.adapter.PicDetailPagerAdapter
 import com.fxyandtjh.voiceaccounting.base.BaseFragment
+import com.fxyandtjh.voiceaccounting.base.Constants
+import com.fxyandtjh.voiceaccounting.base.RxDialogSet
+import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragPicDetailBinding
 import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
 import com.fxyandtjh.voiceaccounting.tool.PicDividerUtil
+import com.fxyandtjh.voiceaccounting.tool.setVisible
 import com.fxyandtjh.voiceaccounting.viewmodel.PicDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +28,30 @@ class PicDetailFragment : BaseFragment<PicDetailViewModel, FragPicDetailBinding>
     private val viewModel: PicDetailViewModel by viewModels()
 
     private val args: PicDetailFragmentArgs by navArgs()
+
+    private val moreDialog: RxDialogSet? by lazy {
+        context?.let {
+            val tempDialog = RxDialogSet(it, R.style.SimpleDialog, R.layout.dia_more)
+            tempDialog.setViewState<ImageView>(R.id.btn_close) {
+                setLimitClickListener {
+                    tempDialog.dismiss()
+                    binding.containerBottom.setVisible(true)
+                }
+            }
+            tempDialog.setViewState<LinearLayout>(R.id.btn_exchange) {
+                setLimitClickListener {
+                    // 操作对应的fragment的imageView进行旋转
+                    try {
+                        val targetFragment = pagerAdapter.mFragments[viewModel.picData.selectedIndex]
+                        targetFragment.rotateImage()
+                    } catch (e: Exception) {
+                        ToastUtils.showShort(getText(R.string.error_rotate))
+                    }
+                }
+            }
+            tempDialog
+        }
+    }
 
     // 分组后的排序后的图片
     private val orderPicList: List<PictureInfo> by lazy {
@@ -34,10 +67,19 @@ class PicDetailFragment : BaseFragment<PicDetailViewModel, FragPicDetailBinding>
         args.picDetailArgs?.let {
             viewModel.picData = it
         }
-        PicDetailPagerAdapter(
-            fragment = this@PicDetailFragment,
-            dataPics = orderPicList.map { it.imageUrl }
-        )
+        val tempAdapter = PicDetailPagerAdapter(
+            fragment = this@PicDetailFragment
+        ) {
+            updateTitleStatus()
+        }
+        tempAdapter.mFragments = orderPicList.map { item ->
+            val tempFragment = SinglePicFragment()
+            tempFragment.arguments = Bundle().apply {
+                putString(Constants.PIC_URL, item.imageUrl)
+            }
+            tempFragment
+        }
+        tempAdapter
     }
 
     override fun getViewMode(): PicDetailViewModel = viewModel
@@ -62,6 +104,11 @@ class PicDetailFragment : BaseFragment<PicDetailViewModel, FragPicDetailBinding>
                 updateTitleContent(position)
             }
         })
+
+        binding.btnMore.setLimitClickListener {
+            binding.containerBottom.setVisible(false)
+            moreDialog?.show()
+        }
     }
 
     private fun updateTitleContent(selectedIndex: Int, isInit: Boolean = false) {
@@ -69,12 +116,28 @@ class PicDetailFragment : BaseFragment<PicDetailViewModel, FragPicDetailBinding>
         if (isInit) {
             val targetPictureInfo = viewModel.picData.picList[selectedIndex]
             val targetSelectedIndex = orderPicList.indexOf(targetPictureInfo)
+            // 每次轮播都将更新选中的index
+            viewModel.updateSelectedIndex(targetSelectedIndex)
             binding.vpPic.setCurrentItem(targetSelectedIndex, false)
             binding.tvTitle.text =
                 "${LocalCache.currentAlbum.title}(${targetSelectedIndex + 1}/${listSize})"
         } else {
+            viewModel.updateSelectedIndex(selectedIndex)
             binding.tvTitle.text =
                 "${LocalCache.currentAlbum.title}(${selectedIndex + 1}/${listSize})"
         }
+    }
+
+    private fun updateTitleStatus() {
+        binding.mToolbar.setVisible(!viewModel.fullScreen)
+        binding.containerBottom.setVisible(!viewModel.fullScreen)
+        binding.mRootView.setBackgroundResource(
+            if (viewModel.fullScreen)
+                R.drawable.bg_4_black
+            else
+                R.drawable.bg_white
+        )
+
+        viewModel.fullScreen = !viewModel.fullScreen
     }
 }
