@@ -157,6 +157,9 @@ dependencies {
     // Lottie动画
     implementation "com.airbnb.android:lottie:6.1.0"
 
+    // 下拉加载
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
     // 图片缩放
     implementation "io.github.panpf.sketch3:sketch:3.3.0-beta04"
     implementation "io.github.panpf.sketch3:sketch-zoom:3.3.0-beta04"

@@ -27,6 +27,10 @@ class AlbumViewModel @Inject constructor(
     val _uploadSuccess: SharedFlow<Pair<Int, Int>> = uploadSuccess
 
     init {
+        getAlbumFromRemote()
+    }
+
+    fun getAlbumFromRemote() {
         launchUIWithDialog {
             if (_albumInfo.value.id != "") {
                 refreshAlbum()

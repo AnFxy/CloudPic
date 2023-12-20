@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewbinding.ViewBinding
+import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.PhoneUtils
 import com.fxyandtjh.voiceaccounting.R
 import kotlinx.coroutines.launch
@@ -27,6 +29,8 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
     var specialBack: (() -> Unit)? = null // 特定页面特殊返回操作
 
     lateinit var navController: NavController
+
+    private var refreshView: SwipeRefreshLayout? = null
 
     // viewModel 获取
     private val mviewModel: VM by lazy {
@@ -87,6 +91,14 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
                     })
                 }
         }
+        // 下拉刷新
+        refreshView = binding.root.findViewById<SwipeRefreshLayout>(R.id.m_refresh)
+        refreshView?.apply {
+            setColorSchemeColors(ColorUtils.getColor(R.color.heavy_blue))
+            setOnRefreshListener {
+                onRefresh()
+            }
+        }
         return binding.root
     }
 
@@ -100,6 +112,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
                     requestDataLoadDialog?.show()
                 } else {
                     requestDataLoadDialog?.dismiss()
+                    refreshView?.isRefreshing = false
                 }
             }
         }
@@ -123,4 +136,6 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
     open fun setLayout() {}
 
     open fun setObserver() {}
+
+    open fun onRefresh() {}
 }

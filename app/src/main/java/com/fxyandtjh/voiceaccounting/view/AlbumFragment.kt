@@ -157,6 +157,10 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
         }
     }
 
+    override fun onRefresh() {
+        viewModel.getAlbumFromRemote()
+    }
+
     private fun updateUpBtnStyle(labelId: Int) {
         val btnResourceID = when (labelId) {
             Type.MULTI.weight -> R.mipmap.add_multi

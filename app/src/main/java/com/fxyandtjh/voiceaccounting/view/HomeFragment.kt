@@ -64,6 +64,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragHomeBinding>() {
         }
     }
 
+    override fun onRefresh() {
+        viewModel.getAlbumListFromRemote()
+    }
+
     private fun updateAlbumAndPicCount(albums: List<AlbumInfo>) {
         val albumsCount = if (albums.isEmpty()) 0 else albums.size - 1
         val picSize = albums.sumOf { item -> item.total }

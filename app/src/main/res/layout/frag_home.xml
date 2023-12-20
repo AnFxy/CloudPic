@@ -33,14 +33,22 @@
                 android:textAlignment="center"/>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_pic"
+    
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/m_refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingHorizontal="5dp"
-        android:background="@drawable/bg_tran_blue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/m_toolbar"/>
+        app:layout_constraintTop_toBottomOf="@id/m_toolbar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="5dp"
+            android:background="@drawable/bg_tran_blue"
+            />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
