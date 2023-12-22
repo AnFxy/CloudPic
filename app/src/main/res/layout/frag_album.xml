@@ -24,14 +24,20 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@mipmap/back">
+        app:navigationIcon="@mipmap/back_white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingEnd="40dp">
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/tv_all"
+                style="@style/BoldText16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_all"
+                android:visibility="gone"/>
             <TextView
                 android:id="@+id/tv_title"
                 style="@style/BoldWhiteText18"
@@ -42,14 +48,28 @@
                 android:textAlignment="center"
                 android:layout_marginEnd="20dp"/>
 
+            <ImageView
+                android:id="@+id/iv_all"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:padding="3dp"
+                android:layout_marginEnd="18dp"
+                android:src="@mipmap/select_all_white"/>
+
+            <ImageView
+                android:id="@+id/iv_edit"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="18dp"
+                android:src="@mipmap/more_white"/>
             <TextView
-                android:id="@+id/tv_edit"
+                android:id="@+id/tv_cancel"
+                style="@style/BoldText16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextPrimary16"
-                android:layout_marginEnd="15dp"
-                android:visibility="gone"
-                android:text="@string/save"/>
+                android:text="@string/cancel"
+                android:layout_marginEnd="18dp"
+                android:visibility="gone"/>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -62,4 +82,42 @@
         android:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/edit_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_10_white"
+        android:gravity="center_vertical|end"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@mipmap/delete_gray" />
+
+            <TextView
+                style="@style/TextGrayBold12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/delete" />
+        </LinearLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

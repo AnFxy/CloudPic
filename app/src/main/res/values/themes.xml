@@ -115,6 +115,12 @@
         <item name="android:textColor">#DF6546</item>
     </style>
 
+    <style name="RedBoldText16">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#DF6546</item>
+    </style>
+
     <style name="GrayText12">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#999999</item>

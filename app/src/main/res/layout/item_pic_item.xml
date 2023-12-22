@@ -15,4 +15,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <CheckBox
+        android:id="@+id/cb_select"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:button="@null"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_select_pic"
+        app:layout_constraintTop_toTopOf="@id/iv_pic"
+        app:layout_constraintEnd_toEndOf="@id/iv_pic"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

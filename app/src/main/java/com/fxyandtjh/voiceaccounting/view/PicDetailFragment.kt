@@ -19,6 +19,7 @@ import com.fxyandtjh.voiceaccounting.base.Constants
 import com.fxyandtjh.voiceaccounting.base.RxDialogSet
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragPicDetailBinding
+import com.fxyandtjh.voiceaccounting.entity.ExtraPictureInfo
 import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
 import com.fxyandtjh.voiceaccounting.tool.PicDividerUtil
@@ -65,7 +66,7 @@ class PicDetailFragment : BaseFragment<PicDetailViewModel, FragPicDetailBinding>
                         // 下载对应的图片
                         try {
                             val targetUrl = orderPicList[viewModel.picData.selectedIndex]
-                            viewModel.downloadPicture(targetUrl.imageUrl)
+                            viewModel.downloadPicture(targetUrl.pictureInfo.imageUrl)
                         } catch (e: Exception) {
                             ToastUtils.showShort(getText(R.string.error_download))
                         }
@@ -77,9 +78,9 @@ class PicDetailFragment : BaseFragment<PicDetailViewModel, FragPicDetailBinding>
     }
 
     // 分组后的排序后的图片
-    private val orderPicList: List<PictureInfo> by lazy {
+    private val orderPicList: List<ExtraPictureInfo> by lazy {
         val orderGroup = PicDividerUtil.instance.dividerPicData(viewModel.picData.picList)
-        val orderList = arrayListOf<PictureInfo>()
+        val orderList = arrayListOf<ExtraPictureInfo>()
         orderGroup.forEach {
             orderList.addAll(it.second)
         }
@@ -98,7 +99,7 @@ class PicDetailFragment : BaseFragment<PicDetailViewModel, FragPicDetailBinding>
         tempAdapter.mFragments = orderPicList.map { item ->
             val tempFragment = SinglePicFragment()
             tempFragment.arguments = Bundle().apply {
-                putString(Constants.PIC_URL, item.imageUrl)
+                putString(Constants.PIC_URL, item.pictureInfo.imageUrl)
             }
             tempFragment
         }

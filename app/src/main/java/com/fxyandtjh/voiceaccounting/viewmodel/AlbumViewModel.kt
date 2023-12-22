@@ -1,6 +1,8 @@
 package com.fxyandtjh.voiceaccounting.viewmodel
 
 import com.fxyandtjh.voiceaccounting.base.BaseViewModel
+import com.fxyandtjh.voiceaccounting.entity.ExtraPictureInfo
+import com.fxyandtjh.voiceaccounting.entity.PicEditType
 import com.fxyandtjh.voiceaccounting.entity.PicFile
 import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
@@ -20,16 +22,25 @@ class AlbumViewModel @Inject constructor(
     private val albumInfo: MutableStateFlow<AlbumInfo> = MutableStateFlow(LocalCache.currentAlbum)
     val _albumInfo: StateFlow<AlbumInfo> = albumInfo
 
-    private val picList: MutableStateFlow<List<PictureInfo>> = MutableStateFlow(emptyList())
-    val _picList: StateFlow<List<PictureInfo>> = picList
+    private val picList: MutableStateFlow<List<ExtraPictureInfo>> = MutableStateFlow(emptyList())
+    val _picList: StateFlow<List<ExtraPictureInfo>> = picList
 
     private val uploadSuccess: MutableSharedFlow<Pair<Int, Int>> = MutableSharedFlow()
     val _uploadSuccess: SharedFlow<Pair<Int, Int>> = uploadSuccess
+
+    private val selectMode: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val _selectMode: StateFlow<Boolean> = selectMode
+
+    private val deleteSuccess: MutableSharedFlow<Unit> = MutableSharedFlow()
+    val _deleteSuccess: SharedFlow<Unit> = deleteSuccess
+
+    var isAllSelected: Boolean = false
 
     init {
         getAlbumFromRemote()
     }
 
+    // 获取云相册
     fun getAlbumFromRemote() {
         launchUIWithDialog {
             if (_albumInfo.value.id != "") {
@@ -60,6 +71,7 @@ class AlbumViewModel @Inject constructor(
         }
     }
 
+    // 刷新云相册
     private suspend fun refreshAlbum() {
         val albumDetail = mainRepository.getAlbumDetailFromRemote(_albumInfo.value.id)
         albumInfo.value = _albumInfo.value.copy(
@@ -70,6 +82,51 @@ class AlbumViewModel @Inject constructor(
             createTime = albumDetail.createTime,
             id = albumDetail.albumId
         )
-        picList.value = albumDetail.picList
+        picList.value = albumDetail.picList.map { item ->
+            ExtraPictureInfo(pictureInfo = item)
+        }
+    }
+
+    // 编辑模式开启与关闭
+    fun updateSelectMode(isSelect: Boolean) {
+        this.selectMode.value = isSelect
+
+        this.picList.value =
+            this._picList.value.map { item -> item.copy(showSelect = isSelect, selected = false) }
+    }
+
+    // 选中图片
+    fun updateCheckMode(targetItem: ExtraPictureInfo, isChecked: Boolean) {
+        val targetIndex = this._picList.value.indexOf(targetItem)
+        if (targetIndex != -1) {
+            this.picList.value = this._picList.value.mapIndexed { index, extraPictureInfo ->
+                if (index == targetIndex) {
+                    extraPictureInfo.copy(selected = isChecked)
+                } else {
+                    extraPictureInfo
+                }
+            }
+        }
+
+    }
+
+    // 点击全选
+    fun updateCheckAllMode() {
+        this.isAllSelected = !this.isAllSelected
+        this.picList.value =
+            this._picList.value.map { item -> item.copy(selected = this.isAllSelected) }
+    }
+
+    // 删除所选的照片
+    fun deleteSelectedPics() {
+        launchUIWithDialog {
+            mainRepository.updateAlbumPic(
+                imageUrlList = _picList.value
+                    .filter { item -> item.selected }.map { it.pictureInfo.imageUrl },
+                albumId = _albumInfo.value.id,
+                updateType = PicEditType.REMOVE.value
+            )
+            deleteSuccess.emit(Unit)
+        }
     }
 }

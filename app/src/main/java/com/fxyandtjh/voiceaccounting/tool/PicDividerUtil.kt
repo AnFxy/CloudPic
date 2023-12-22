@@ -1,6 +1,6 @@
 package com.fxyandtjh.voiceaccounting.tool
 
-import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
+import com.fxyandtjh.voiceaccounting.entity.ExtraPictureInfo
 
 class PicDividerUtil private constructor() {
 
@@ -10,9 +10,9 @@ class PicDividerUtil private constructor() {
         }
     }
 
-    fun dividerPicData(origPicList: List<PictureInfo>): List<Pair<Long, List<PictureInfo>>> {
+    fun dividerPicData(origPicList: List<ExtraPictureInfo>): List<Pair<Long, List<ExtraPictureInfo>>> {
         // 按时间分组 并倒叙排列
-        return origPicList.groupBy { it.createTime / 86400000 }
+        return origPicList.groupBy { it.pictureInfo.createTime / 86400000 }
             .toList().sortedByDescending { pair -> pair.first }
     }
 }
