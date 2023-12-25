@@ -29,6 +29,7 @@ class MyViewModel @Inject constructor(
 
     private val userInfoData: MutableStateFlow<UserInfo> = MutableStateFlow(
         UserInfo(
+            uid = 0,
             name = "",
             headUrl = "",
             des = "",

@@ -64,9 +64,10 @@ class MainRepository @Inject constructor(
         return service.updateAlbumDetail(map).checkError()
     }
 
-    override suspend fun deleteAlbum(albumId: String) {
+    override suspend fun deleteAlbum(albumId: String, type: Int) {
         val map = HashMap<String, String>()
         map["albumId"] = albumId
+        map["type"] = "$type"
         return service.deleteAlbum(map).checkError()
     }
 

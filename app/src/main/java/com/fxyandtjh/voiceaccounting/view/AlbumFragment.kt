@@ -5,15 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.constant.PermissionConstants
-import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
 import com.fxyandtjh.voiceaccounting.R
@@ -32,9 +29,7 @@ import com.fxyandtjh.voiceaccounting.tool.GlideEngine
 import com.fxyandtjh.voiceaccounting.tool.HandlePhoto
 import com.fxyandtjh.voiceaccounting.tool.PicDividerUtil
 import com.fxyandtjh.voiceaccounting.tool.PicLoadUtil
-import com.fxyandtjh.voiceaccounting.tool.SimplePermissionCallBack
 import com.fxyandtjh.voiceaccounting.tool.setVisible
-import com.fxyandtjh.voiceaccounting.tool.setVisibleWithUnVisual
 import com.fxyandtjh.voiceaccounting.viewmodel.AlbumViewModel
 import com.huantansheng.easyphotos.Builder.AlbumBuilder
 import com.huantansheng.easyphotos.EasyPhotos
@@ -59,6 +54,57 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
                 setLimitClickListener {
                     // 进行删除操作
                     viewModel.deleteSelectedPics()
+                    tempDialog.dismiss()
+                }
+            }
+            tempDialog.setViewState<TextView>(R.id.tv_cancel) {
+                setLimitClickListener {
+                    tempDialog.dismiss()
+                }
+            }
+            tempDialog
+        }
+    }
+
+    private val moreDialog: RxDialogSet? by lazy {
+        context?.let {
+            val tempDialog = RxDialogSet(it, R.style.SimpleNoShadowDialog, R.layout.dia_edit_album)
+            tempDialog.setViewState<ConstraintLayout>(R.id.container) {
+                setLimitClickListener {
+                    tempDialog.dismiss()
+                }
+            }
+            tempDialog.setViewState<TextView>(R.id.tv_edit) {
+                setLimitClickListener {
+                    // 进行编辑相册
+                    navController.navigate(AlbumFragmentDirections.actionAlbumFragmentToNewAlbumFragment())
+                    tempDialog.dismiss()
+                }
+            }
+            tempDialog.setViewState<TextView>(R.id.tv_delete) {
+                setLimitClickListener {
+                    // 弹出删除相册的编辑框
+                    deleteAlbumDialog?.show()
+                    tempDialog.dismiss()
+                }
+            }
+            tempDialog
+        }
+    }
+
+    private val deleteAlbumDialog: RxDialogSet? by lazy {
+        context?.let {
+            val tempDialog = RxDialogSet(it, R.style.SimpleDialog, R.layout.dia_delete_confirm)
+            tempDialog.setViewState<TextView>(R.id.tv_title) {
+                text = getText(R.string.confirm_delete_album)
+            }
+            tempDialog.setViewState<TextView>(R.id.tv_tips) {
+                text = getText(R.string.delete_album_tips)
+            }
+            tempDialog.setViewState<TextView>(R.id.tv_confirm) {
+                setLimitClickListener {
+                    // 进行删除相册操作
+                    viewModel.deleteAlbum()
                     tempDialog.dismiss()
                 }
             }
@@ -200,6 +246,11 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
             viewModel.updateCheckAllMode()
         }
 
+        binding.ivEdit.setLimitClickListener {
+            // 弹出更多弹框
+            moreDialog?.show()
+        }
+
         binding.btnDelete.setLimitClickListener {
             // 点击删除
             deleteDialog?.show()
@@ -241,6 +292,12 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
                 ToastUtils.showShort(getText(R.string.delete_success))
                 viewModel.updateSelectMode(false)
                 viewModel.getAlbumFromRemote()
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel._goBack.collect {
+                specialBack?.invoke()
             }
         }
     }

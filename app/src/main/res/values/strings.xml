@@ -101,6 +101,10 @@
     <string name="select_item">选择项目</string>
     <string name="confirm_delete">你确定要删除所选的照片吗？</string>
     <string name="delete">删除</string>
-    <string name="delete_tips">所选的图片将会从相册中永久删除，无法找回。</string>
+    <string name="delete_tips">所选的图片将会从相册中永久删除，且无法找回。</string>
     <string name="delete_success">删除成功！</string>
+    <string name="edit_album">编辑相册</string>
+    <string name="delete_album">删除相册</string>
+    <string name="confirm_delete_album">你确定要删除此相册吗？</string>
+    <string name="delete_album_tips">删除相册将会删除相册内所有图片，且无法找回。</string>
 </resources>

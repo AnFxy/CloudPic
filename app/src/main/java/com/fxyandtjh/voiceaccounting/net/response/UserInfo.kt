@@ -1,6 +1,7 @@
 package com.fxyandtjh.voiceaccounting.net.response
 
 data class UserInfo(
+    val uid: Long,
     val name: String,
     val headUrl: String,
     val des: String,

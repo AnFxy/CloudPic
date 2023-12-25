@@ -19,6 +19,7 @@ class LocalCache {
         var userInfo: UserInfo by SPSet<UserInfo>(
             SPKeys.USER_INFO,
             UserInfo(
+                uid = 0,
                 name = "",
                 headUrl = "",
                 des = "",

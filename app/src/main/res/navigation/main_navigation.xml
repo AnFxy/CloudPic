@@ -63,6 +63,9 @@
                 app:nullable="true"
                 android:defaultValue="@null" />
         </action>
+        <action
+            android:id="@+id/action_albumFragment_to_newAlbumFragment"
+            app:destination="@id/newAlbumFragment" />
     </fragment>
     <fragment
         android:id="@+id/picDetailFragment"

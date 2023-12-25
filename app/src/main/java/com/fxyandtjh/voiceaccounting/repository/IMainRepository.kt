@@ -27,7 +27,7 @@ interface IMainRepository {
     suspend fun updateAlbumDetail(albumId: String, title: String, labelId: Int, faceUrl: String)
 
     // 删除整个相册
-    suspend fun deleteAlbum(albumId: String)
+    suspend fun deleteAlbum(albumId: String, type: Int)
 
     // 获取用户信息
     suspend fun obtainUserInformation(): UserInfo

@@ -5,6 +5,7 @@ import com.fxyandtjh.voiceaccounting.base.BaseViewModel
 import com.fxyandtjh.voiceaccounting.entity.LoginInfo
 import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.repository.impl.LoginRepository
+import com.fxyandtjh.voiceaccounting.repository.impl.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginRepository: LoginRepository
+    private val loginRepository: LoginRepository,
+    private val mainRepository: MainRepository
 ) : BaseViewModel() {
 
     private val selectedLogin = MutableStateFlow<Boolean>(true)
@@ -72,6 +74,8 @@ class LoginViewModel @Inject constructor(
             LocalCache.isLogged = true
             LocalCache.token = tokenInfo.token
             LocalCache.phoneNumber = _pageData.value.phoneNumber
+            // 请求获取用户个人信息
+            LocalCache.userInfo = mainRepository.obtainUserInformation()
             // 通知前往home页面
             goHome.emit(true)
         }

@@ -7,6 +7,7 @@ import com.fxyandtjh.voiceaccounting.entity.PicFile
 import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
 import com.fxyandtjh.voiceaccounting.net.response.PictureInfo
+import com.fxyandtjh.voiceaccounting.net.response.Subscriber
 import com.fxyandtjh.voiceaccounting.repository.impl.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -33,6 +34,12 @@ class AlbumViewModel @Inject constructor(
 
     private val deleteSuccess: MutableSharedFlow<Unit> = MutableSharedFlow()
     val _deleteSuccess: SharedFlow<Unit> = deleteSuccess
+
+    private val subscribers: MutableStateFlow<List<Subscriber>> = MutableStateFlow(emptyList())
+    val _subscribers: StateFlow<List<Subscriber>> = subscribers
+
+    private val goBack: MutableSharedFlow<Unit> = MutableSharedFlow()
+    val _goBack: SharedFlow<Unit> = goBack
 
     var isAllSelected: Boolean = false
 
@@ -85,6 +92,7 @@ class AlbumViewModel @Inject constructor(
         picList.value = albumDetail.picList.map { item ->
             ExtraPictureInfo(pictureInfo = item)
         }
+        subscribers.value = albumDetail.subscribers
     }
 
     // 编辑模式开启与关闭
@@ -127,6 +135,17 @@ class AlbumViewModel @Inject constructor(
                 updateType = PicEditType.REMOVE.value
             )
             deleteSuccess.emit(Unit)
+        }
+    }
+
+    // 删除相册
+    fun deleteAlbum () {
+        launchUIWithDialog {
+            val uid = LocalCache.userInfo.uid
+            val targetSubscriber = subscribers.value.filter { it.uid == LocalCache.userInfo.uid }
+
+            mainRepository.deleteAlbum(albumId = _albumInfo.value.id, type = targetSubscriber[0].isOwner)
+            goBack.emit(Unit)
         }
     }
 }
