@@ -45,7 +45,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragHomeBinding>() {
         context?.let {
             binding.rvPic.apply {
                 layoutManager = GridLayoutManager(context, 2)
-                addItemDecoration(CustomItemDecoration(dip2px(20f)))
+//                addItemDecoration(CustomItemDecoration(dip2px(20f)))
                 adapter = mAdapter
             }
         }
