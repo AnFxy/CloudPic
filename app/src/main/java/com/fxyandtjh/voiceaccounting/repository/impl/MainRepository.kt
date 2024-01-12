@@ -2,6 +2,7 @@ package com.fxyandtjh.voiceaccounting.repository.impl
 
 import com.fxyandtjh.voiceaccounting.entity.NewAlbumInfo
 import com.fxyandtjh.voiceaccounting.net.NetInterface
+import com.fxyandtjh.voiceaccounting.net.response.AccountSecurityMessage
 import com.fxyandtjh.voiceaccounting.net.response.AlbumDetail
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
 import com.fxyandtjh.voiceaccounting.net.response.NotesInfo
@@ -86,5 +87,17 @@ class MainRepository @Inject constructor(
 
     override suspend fun getNotesListFromRemote(): List<NotesInfo> {
         return service.getNotes().checkData()
+    }
+
+    override suspend fun getUserAccountSecurityMessage(): AccountSecurityMessage {
+        return service.getAccountSecurity().checkData()
+    }
+
+    override suspend fun updateUserAccountSecurity(questionId: Int, answer: String, type: Int) {
+        val map = HashMap<String, Any>()
+        map["questionId"] = questionId
+        map["answer"] = answer
+        map["type"] = type
+        service.updateSecurity(map).checkError()
     }
 }

@@ -27,20 +27,22 @@ import com.fxyandtjh.voiceaccounting.entity.PicsDetail
 import com.fxyandtjh.voiceaccounting.entity.Type
 import com.fxyandtjh.voiceaccounting.tool.GlideEngine
 import com.fxyandtjh.voiceaccounting.tool.HandlePhoto
+import com.fxyandtjh.voiceaccounting.tool.MyPicSelectorStyle
 import com.fxyandtjh.voiceaccounting.tool.PicDividerUtil
 import com.fxyandtjh.voiceaccounting.tool.PicLoadUtil
 import com.fxyandtjh.voiceaccounting.tool.setVisible
 import com.fxyandtjh.voiceaccounting.viewmodel.AlbumViewModel
-import com.huantansheng.easyphotos.Builder.AlbumBuilder
-import com.huantansheng.easyphotos.EasyPhotos
-import com.huantansheng.easyphotos.callback.SelectCallback
-import com.huantansheng.easyphotos.models.album.entity.Photo
-import com.huantansheng.easyphotos.setting.Setting
+import com.luck.picture.lib.basic.PictureSelector
+import com.luck.picture.lib.config.SelectMimeType
+import com.luck.picture.lib.entity.LocalMedia
+import com.luck.picture.lib.interfaces.OnResultCallbackListener
+import com.luck.picture.lib.style.PictureSelectorStyle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileInputStream
 import java.util.Locale
+
 
 @AndroidEntryPoint
 class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
@@ -118,10 +120,13 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
     }
 
     private lateinit var headerView: View
+    private lateinit var footView: View
 
     private val mAdapter: PicAdapter by lazy {
-        // 添加封面Header
-        headerView = LayoutInflater.from(context).inflate(R.layout.head_pic, null, false)
+        // 添加封面Header 与底部边距
+        headerView = LayoutInflater.from(context).inflate(R.layout.head_pic, binding.rvPics, false)
+        footView =
+            LayoutInflater.from(context).inflate(R.layout.default_foot_view, binding.rvPics, false)
         val faceView = headerView.findViewById<ImageView>(R.id.iv_face)
         val textView = headerView.findViewById<TextView>(R.id.tv_count_pic)
         textView.text = "${viewModel._albumInfo.value.total}张照片"
@@ -149,21 +154,8 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
             viewModel.updateCheckMode(item, isChecked)
         })
         tempAdapter.addHeaderView(headerView)
+        tempAdapter.addFooterView(footView)
         tempAdapter
-    }
-
-    // 图片选择器
-    private val albumBuilder: AlbumBuilder by lazy {
-        EasyPhotos.createAlbum(
-            this,
-            true,
-            false,
-            GlideEngine.instance
-        )
-            .setFileProviderAuthority("com.fxyandtjh.voiceaccounting.fileprovider")
-            .setCount(10)
-            .setVideo(false)
-            .setCameraLocation(Setting.LIST_FIRST)
     }
 
     override fun getViewMode(): AlbumViewModel = viewModel
@@ -189,18 +181,20 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
 
     override fun setObserver() {
         binding.ivUpload.setLimitClickListener {
-            albumBuilder.start(object : SelectCallback() {
-                override fun onResult(photos: ArrayList<Photo>?, isOriginal: Boolean) {
-                    // 当图片获取到后，并发上传到服务器获取到对应的URL
-                    photos?.let {
-                        handleUriToBase64(it)
-                    } ?: ToastUtils.showShort(getText(R.string.no_select_pic))
-                }
+            PictureSelector.create(this@AlbumFragment)
+                .openGallery(SelectMimeType.ofImage())
+                .setImageEngine(GlideEngine.createGlideEngine())
+                .setSelectorUIStyle(PictureSelectorStyle())
+                .forResult(object : OnResultCallbackListener<LocalMedia?> {
+                    override fun onResult(result: ArrayList<LocalMedia?>) {
+                        // 当图片获取到后，并发上传到服务器获取到对应的URL
+                        handleUriToBase64(result)
+                    }
 
-                override fun onCancel() {
-                    ToastUtils.showShort(getText(R.string.no_select_pic))
-                }
-            })
+                    override fun onCancel() {
+                        ToastUtils.showShort(getText(R.string.no_select_pic))
+                    }
+                })
         }
 
         // 滑动相册进行样式预览修改
@@ -322,9 +316,9 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
         )
     }
 
-    private fun handleUriToBase64(photos: List<Photo>) {
+    private fun handleUriToBase64(photos: List<LocalMedia?>) {
         val picFiles: List<PicFile> = photos.map { item ->
-            val file = File(HandlePhoto.handleImageOkKitKat(item.uri, context))
+            val file = File(item?.realPath ?: "")
             val fileInputStream = FileInputStream(file)
             val bytes = ByteArray(fileInputStream.available())
             fileInputStream.read(bytes)

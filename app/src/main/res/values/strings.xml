@@ -107,4 +107,16 @@
     <string name="delete_album">删除相册</string>
     <string name="confirm_delete_album">你确定要删除此相册吗？</string>
     <string name="delete_album_tips">删除相册将会删除相册内所有图片，且无法找回。</string>
+    <string name="security_question">密保问题</string>
+    <string name="modify">修改</string>
+    <string name="id">ID</string>
+    <string name="bind_phone_number">绑定手机号</string>
+    <string name="modify_password">修改密码</string>
+    <string name="please_select_question">请选择密保问题</string>
+    <string name="input_security_answer">请输入密保答案</string>
+    <string name="modify_success">密保修改成功！</string>
+    <string name="privacy_pre">请阅读并勾选同意小鲸鱼相册</string>
+    <string name="privacy_center">和</string>
+    <string name="privacy_login">《隐私协议》</string>
+    <string name="user_privacy_login">《用户协议》</string>
 </resources>

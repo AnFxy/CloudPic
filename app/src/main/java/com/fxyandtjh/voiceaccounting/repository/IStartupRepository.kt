@@ -1,6 +1,7 @@
 package com.fxyandtjh.voiceaccounting.repository
 
 import com.fxyandtjh.voiceaccounting.net.response.BugInfo
+import com.fxyandtjh.voiceaccounting.net.response.CommonConfig
 import com.fxyandtjh.voiceaccounting.net.response.VersionInfo
 
 interface IStartupRepository {
@@ -9,4 +10,6 @@ interface IStartupRepository {
     suspend fun uploadBugs(bugInfo: BugInfo)
 
     suspend fun getBugsHistory(): List<BugInfo>
+
+    suspend fun getCommonConfig(): CommonConfig
 }

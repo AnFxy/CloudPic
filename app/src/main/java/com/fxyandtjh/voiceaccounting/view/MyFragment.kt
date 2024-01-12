@@ -18,6 +18,8 @@ import com.fxyandtjh.voiceaccounting.base.RxDialogSet
 import com.fxyandtjh.voiceaccounting.base.receiveCallBackDataFromLastFragment
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragMyBinding
+import com.fxyandtjh.voiceaccounting.entity.WebViewInfo
+import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.net.response.UserInfo
 import com.fxyandtjh.voiceaccounting.tool.PicLoadUtil
 import com.fxyandtjh.voiceaccounting.tool.encryptionPhoneNumber
@@ -85,12 +87,36 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
         }
 
         binding.livBug.setLimitClickListener {
+            // 点击进入bug反馈页面
             navController.navigate(MyFragmentDirections.actionMyFragmentToBugFragment())
+        }
+
+        binding.livSecurity.setLimitClickListener {
+            // 点击进入账户安全页面
+            navController.navigate(MyFragmentDirections.actionMyFragmentToAccountSecurityFragment())
+        }
+
+        binding.livPrivacy.setLimitClickListener {
+            // 点击进入隐私政策页面
+            if (LocalCache.commonConfig.privacyUrl != "") {
+                navController.navigate(StartupNavigationDirections.justGoWebview(
+                    WebViewInfo(
+                        title = getText(R.string.privacy).toString(),
+                        link = LocalCache.commonConfig.privacyUrl
+                    )
+                ))
+            }
+        }
+
+        binding.livUserPrivacy.setLimitClickListener {
+            // 点击进入用户协议页面
+
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel._goLogin.collect {
                 logoutDialog?.dismiss()
+                navController.popBackStack(R.id.splashFragment, true)
                 navController.navigate(StartupNavigationDirections.justGoLogin())
             }
         }

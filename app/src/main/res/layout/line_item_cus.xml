@@ -32,14 +32,14 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:button="@drawable/radio_gender"
-            style="@style/TextPrimary14"
+            style="@style/GrayText14"
             android:text="@string/male"/>
         <RadioButton
             android:id="@+id/gender_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/radio_gender"
-            style="@style/TextPrimary14"
+            style="@style/GrayText14"
             android:text="@string/female"/>
     </RadioGroup>
 
@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/TextPrimary14"
-        android:background="@drawable/bg_8_light_gray"
+        android:background="@drawable/bg_edit"
         android:layout_marginHorizontal="15dp"
         android:paddingVertical="4dp"
         android:paddingHorizontal="10dp"

@@ -7,5 +7,6 @@ class SPKeys {
         val PHONE_NUMBER = "phone_number"
         val USER_INFO = "user_info"
         val CURRENT_ALBUM = "current_album"
+        val COMMON_CONFIG = "common_config"
     }
 }

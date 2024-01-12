@@ -11,10 +11,13 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.fxyandtjh.voiceaccounting.R
+import com.fxyandtjh.voiceaccounting.StartupNavigationDirections
 import com.fxyandtjh.voiceaccounting.base.BaseFragment
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragLoginBinding
 import com.fxyandtjh.voiceaccounting.entity.LoginInfo
+import com.fxyandtjh.voiceaccounting.entity.WebViewInfo
+import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.tool.PicLoadUtil
 import com.fxyandtjh.voiceaccounting.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,6 +76,18 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
         binding.btnForgetPw.setLimitClickListener {
             // TODO 前往密保页面
         }
+        binding.tvPrivacy.setLimitClickListener {
+            // 点击进入隐私政策页面
+            if (LocalCache.commonConfig.privacyUrl != "") {
+                navController.navigate(
+                    StartupNavigationDirections.justGoWebview(
+                    WebViewInfo(
+                        title = getText(R.string.privacy).toString(),
+                        link = LocalCache.commonConfig.privacyUrl
+                    )
+                ))
+            }
+        }
         binding.btnRegister.setLimitClickListener {
             if (binding.btnRegister.isChecked == viewModel._selectedLogin.value) {
                 viewModel.changeSelectedState()
@@ -94,6 +109,9 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
         }
         binding.checkEyes.setOnCheckedChangeListener { _, isChecked ->
             viewModel.updateEyes(isChecked)
+        }
+        binding.cbPrivacy.setOnCheckedChangeListener { _, _ ->
+            checkAccountAndPW(viewModel._pageData.value)
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel._selectedLogin.collect { value ->
@@ -181,5 +199,6 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
         val isConfirmPWOK = loginInfo.password == loginInfo.confirmPassword
         binding.btnSubmit.isEnabled = isPhoneNumOk && isPWOk
                 && (viewModel._selectedLogin.value || (!viewModel._selectedLogin.value && isConfirmPWOK))
+                && binding.cbPrivacy.isChecked
     }
 }

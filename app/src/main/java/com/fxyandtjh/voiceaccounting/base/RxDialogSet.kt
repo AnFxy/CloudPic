@@ -21,6 +21,10 @@ class RxDialogSet(context: Context, theme: Int, private val itemLayoutId: Int) :
         return this
     }
 
+    fun <T : View> getView(viewId: Int): T {
+        return findViewById(viewId)
+    }
+
     fun setDialogWidthHeight(
         width: Int = ViewGroup.LayoutParams.MATCH_PARENT,
         height: Int = ViewGroup.LayoutParams.MATCH_PARENT

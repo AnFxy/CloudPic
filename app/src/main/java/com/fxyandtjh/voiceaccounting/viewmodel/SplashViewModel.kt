@@ -2,6 +2,7 @@ package com.fxyandtjh.voiceaccounting.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.fxyandtjh.voiceaccounting.base.BaseViewModel
+import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.net.response.VersionInfo
 import com.fxyandtjh.voiceaccounting.repository.impl.StartupRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +27,8 @@ class SplashViewModel @Inject constructor(
 
     private fun checkUpdate() {
         launchUI({
+            val a = repository.getCommonConfig()
+            LocalCache.commonConfig = a
             val versionInfo = repository.checkUpdate()
             showUpdate.emit(versionInfo)
         }, {

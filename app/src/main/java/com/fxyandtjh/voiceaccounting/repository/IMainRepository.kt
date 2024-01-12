@@ -1,6 +1,7 @@
 package com.fxyandtjh.voiceaccounting.repository
 
 import com.fxyandtjh.voiceaccounting.entity.NewAlbumInfo
+import com.fxyandtjh.voiceaccounting.net.response.AccountSecurityMessage
 import com.fxyandtjh.voiceaccounting.net.response.AlbumDetail
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
 import com.fxyandtjh.voiceaccounting.net.response.NotesInfo
@@ -35,5 +36,12 @@ interface IMainRepository {
     // 更新用户信息
     suspend fun updateUserInformation(userInfo: UserInfo)
 
+    // 获取云笔记数据（因需求变更，已经停止使用）
     suspend fun getNotesListFromRemote(): List<NotesInfo>
+
+    // 获取用户账户安全信息
+    suspend fun getUserAccountSecurityMessage(): AccountSecurityMessage
+
+    // 添加和更新用户安全信息
+    suspend fun updateUserAccountSecurity(questionId: Int, answer: String, type: Int)
 }

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/m_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        app:navigationIcon="@mipmap/back">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginEnd="70dp"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/BoldText18"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/account_security"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="15dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_10_white"
+        app:layout_constraintTop_toBottomOf="@id/m_toolbar">
+
+        <!--用户ID-->
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="@string/id"
+            app:type="fixed"
+            app:isEnable="true"/>
+        <!--用户昵称-->
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="@string/nick_name"
+            app:type="fixed"
+            app:isEnable="true"/>
+        <!--绑定手机号-->
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="@string/bind_phone_number"
+            app:type="fixed"
+            app:isEnable="true"
+            />
+        <!--创建时间-->
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_create_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="@string/create_time"
+            app:isEnable="true"
+            app:type="fixed"/>
+        <!--密保问题-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                style="@style/Text14"
+                android:text="@string/security_question"/>
+
+            <TextView
+                android:id="@+id/tv_security_value"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:lines="1"
+                android:ellipsize="end"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                style="@style/GrayText14" />
+
+            <LinearLayout
+                android:id="@+id/btn_change"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="15dp"
+                android:gravity="center_vertical|end">
+                <TextView
+                    android:id="@+id/tv_change"
+                    android:layout_width="wrap_content"
+                    android:text="@string/modify"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textEnd"
+                    style="@style/Text14"/>
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@mipmap/modify" />
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/bg_color"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!--修改密码-->
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_modify_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:key="@string/modify_password"
+            app:isEnable="true"
+            app:type="empty"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.fxyandtjh.voiceaccounting.repository.impl
 
 import com.fxyandtjh.voiceaccounting.net.NetInterface
 import com.fxyandtjh.voiceaccounting.net.response.BugInfo
+import com.fxyandtjh.voiceaccounting.net.response.CommonConfig
 import com.fxyandtjh.voiceaccounting.net.response.VersionInfo
 import com.fxyandtjh.voiceaccounting.repository.IStartupRepository
 import javax.inject.Inject
@@ -25,5 +26,9 @@ class StartupRepository @Inject constructor(
 
     override suspend fun getBugsHistory(): List<BugInfo> {
         return service.getBugsHistory().checkData()
+    }
+
+    override suspend fun getCommonConfig(): CommonConfig {
+        return service.getInitCommonConfig()
     }
 }

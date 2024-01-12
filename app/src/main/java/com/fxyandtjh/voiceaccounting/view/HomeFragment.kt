@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.adapter.AlbumAdapter
 import com.fxyandtjh.voiceaccounting.base.BaseFragment
 import com.fxyandtjh.voiceaccounting.base.Constants
@@ -13,10 +14,7 @@ import com.fxyandtjh.voiceaccounting.base.receiveCallBackDataFromLastFragment
 import com.fxyandtjh.voiceaccounting.databinding.FragHomeBinding
 import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
-import com.fxyandtjh.voiceaccounting.tool.CustomItemDecoration
-import com.fxyandtjh.voiceaccounting.tool.dip2px
 import com.fxyandtjh.voiceaccounting.viewmodel.HomeViewModel
-import com.huantansheng.easyphotos.EasyPhotos
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -24,10 +22,14 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment<HomeViewModel, FragHomeBinding>() {
     private val viewModel: HomeViewModel by viewModels()
     private val mAdapter: AlbumAdapter by lazy {
-        AlbumAdapter { albumInfo ->
+        val tempAdapter = AlbumAdapter { albumInfo ->
             // 点击后要判断是进入相册详情页面还是 进入新建相册页面
             handleClickAlbum(albumInfo)
         }
+        val defaultFootView =
+            LayoutInflater.from(context).inflate(R.layout.default_foot_view, binding.rvPic, false)
+        tempAdapter.addFooterView(defaultFootView)
+        tempAdapter
     }
 
     override fun getViewMode(): HomeViewModel = viewModel
@@ -35,17 +37,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragHomeBinding>() {
     override fun getViewBinding(inflater: LayoutInflater, parent: ViewGroup?): FragHomeBinding =
         FragHomeBinding.inflate(inflater, parent, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // 系统图册预加载
-        EasyPhotos.preLoad(context)
-    }
-
     override fun setLayout() {
         context?.let {
             binding.rvPic.apply {
                 layoutManager = GridLayoutManager(context, 2)
-//                addItemDecoration(CustomItemDecoration(dip2px(20f)))
                 adapter = mAdapter
             }
         }

@@ -1,6 +1,7 @@
 package com.fxyandtjh.voiceaccounting.view
 
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
@@ -186,6 +187,13 @@ class UserInfoFragment : BaseFragment<UserInfoViewModel, FragUserInfoBinding>() 
 
         // 个签输入
         binding.etDes.isEnabled = isEnable
+        // 输入框字体颜色
+        binding.etDes.setTextColor(
+            if (isEnable)
+                Color.parseColor("#666666")
+            else
+                Color.parseColor("#999999")
+        )
 
         // 编辑按钮文本
         binding.tvEdit.text = if (isEnable) getText(R.string.save) else getText(R.string.edit)
@@ -195,7 +203,7 @@ class UserInfoFragment : BaseFragment<UserInfoViewModel, FragUserInfoBinding>() 
         binding.livHead.valueT = userInfo.headUrl
         binding.livName.valueT = userInfo.name
         binding.livGender.valueT = userInfo.gender.toString()
-        binding.livCreateTime.valueT = timeStampToDate(userInfo.registerTime)
+        binding.livCreateTime.valueT = timeStampToDate(userInfo.registerTime, detail = true)
         binding.etDes.setText(userInfo.des)
     }
 }

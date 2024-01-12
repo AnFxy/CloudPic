@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_myFragment_to_bugFragment"
             app:destination="@id/bugFragment" />
+        <action
+            android:id="@+id/action_myFragment_to_accountSecurityFragment"
+            app:destination="@id/accountSecurityFragment" />
     </fragment>
     <fragment
         android:id="@+id/userInfoFragment"
@@ -77,4 +80,8 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/accountSecurityFragment"
+        android:name="com.fxyandtjh.voiceaccounting.view.AccountSecurityFragment"
+        android:label="AccountSecurityFragment" />
 </navigation>

@@ -1,6 +1,7 @@
 package com.fxyandtjh.voiceaccounting.local
 
 import com.fxyandtjh.voiceaccounting.net.response.AlbumInfo
+import com.fxyandtjh.voiceaccounting.net.response.CommonConfig
 import com.fxyandtjh.voiceaccounting.net.response.UserInfo
 import com.google.gson.reflect.TypeToken
 
@@ -14,6 +15,17 @@ class LocalCache {
 
         // 手机号
         var phoneNumber: String by SPSet<String>(SPKeys.PHONE_NUMBER, "")
+
+        // 隐私协议链接、用户协议链接、密保问题
+        var commonConfig: CommonConfig by SPSet<CommonConfig>(
+            SPKeys.COMMON_CONFIG,
+            CommonConfig(
+                privacyUrl = "",
+                userAgreementUrl = "",
+                securityQuestions = emptyList()
+            ),
+            object : TypeToken<CommonConfig>() {}.type
+        )
 
         // 用户信息
         var userInfo: UserInfo by SPSet<UserInfo>(

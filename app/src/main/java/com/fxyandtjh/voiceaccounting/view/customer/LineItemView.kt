@@ -1,11 +1,11 @@
 package com.fxyandtjh.voiceaccounting.view.customer
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
-import com.blankj.utilcode.util.Utils
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.LineItemCusBinding
@@ -121,15 +121,6 @@ class LineItemView(context: Context, attrs: AttributeSet) : ConstraintLayout(con
     }
 
     private fun updateViewEnable(isEnable: Boolean) {
-        // Key的颜色
-        binding.tvKey.setTextColor(
-            Utils.getApp().getColor(
-                if (isEnable)
-                    R.color.enable_line_color
-                else
-                    R.color.disable_line_color
-            )
-        )
         // 昵称编辑
         if (allowTypeChange) {
             type = if (isEnable) Type.EDIT.value else Type.FIXED.value
@@ -137,6 +128,14 @@ class LineItemView(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         // 性别选择是否可用
         binding.genderFemale.isEnabled = isEnable
         binding.genderMale.isEnabled = isEnable
+
+        // 输入框字体颜色
+        binding.etEdit.setTextColor(
+            if (isEnable)
+              Color.parseColor("#666666")
+            else
+              Color.parseColor("#999999")
+        )
     }
 
     private fun getTrueValueT(): String {

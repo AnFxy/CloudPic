@@ -19,10 +19,10 @@ fun encryptionPhoneNumber(phoneNumber: String): String {
 }
 
 // 时间戳转日期
-fun timeStampToDate(timeStamp: Long): String {
+fun timeStampToDate(timeStamp: Long, detail: Boolean = false): String {
     return try {
         val date = Date(timeStamp)
-        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val sdf = SimpleDateFormat(if (detail) "yyyy-MM-dd hh:mm:ss" else "yyyy-MM-dd")
         sdf.format(date)
     } catch (e: Exception) {
         e.printStackTrace()

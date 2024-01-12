@@ -104,7 +104,7 @@
                 android:paddingVertical="10dp"
                 android:paddingHorizontal="10dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/bg_8_light_gray" />
+                android:background="@drawable/bg_edit" />
         </LinearLayout>
 
     </LinearLayout>

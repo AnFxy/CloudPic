@@ -87,7 +87,7 @@
 
         <EditText
             android:id="@+id/edit_number"
-            style="@style/Text16"
+            style="@style/Text14"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginHorizontal="20dp"
@@ -112,7 +112,7 @@
 
         <EditText
             android:id="@+id/edit_password"
-            style="@style/Text16"
+            style="@style/Text14"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginHorizontal="20dp"
@@ -138,7 +138,7 @@
 
         <EditText
             android:id="@+id/edit_confirm_password"
-            style="@style/Text16"
+            style="@style/Text14"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginHorizontal="20dp"
@@ -153,6 +153,58 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <LinearLayout
+        android:id="@+id/container_privacy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/container">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <CheckBox
+                android:id="@+id/cb_privacy"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:button="@null"
+                android:background="@drawable/bg_check"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextPrimary12"
+                android:layout_marginStart="6dp"
+                android:text="@string/privacy_pre"/>
+
+            <TextView
+                android:id="@+id/tv_privacy"
+                style="@style/LightBlueBoldText12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/privacy_login"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextPrimary12"
+                android:text="@string/privacy_center"/>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_privacy_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/LightBlueBoldText12"
+            android:layout_marginStart="16dp"
+            android:text="@string/user_privacy_login"/>
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_submit"
         android:layout_width="300dp"
@@ -163,10 +215,10 @@
         android:textSize="18sp"
         android:enabled="false"
         android:paddingVertical="6dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/btn_login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/container" />
+        app:layout_constraintTop_toBottomOf="@id/container_privacy" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
