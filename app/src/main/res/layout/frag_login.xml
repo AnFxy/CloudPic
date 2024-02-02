@@ -221,4 +221,55 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/container_privacy" />
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="80dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_submit">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/container_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/img_qq"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/qq"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                style="@style/TextPrimary12"
+                android:text="@string/qq_login"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/container_wechat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/img_wechat"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/wechat"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                style="@style/TextPrimary12"
+                android:text="@string/wechat_login"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

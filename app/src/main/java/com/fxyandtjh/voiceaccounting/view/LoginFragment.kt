@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.blankj.utilcode.util.ToastUtils
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.StartupNavigationDirections
 import com.fxyandtjh.voiceaccounting.base.BaseFragment
@@ -75,7 +76,19 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
         }
         binding.btnForgetPw.setLimitClickListener {
             // TODO 前往密保页面
+            ToastUtils.showShort("暂未开放，请联系客服！")
         }
+
+        binding.containerQq.setLimitClickListener {
+            // TODO QQ登录
+            ToastUtils.showShort("即将接入QQ登录，敬请期待！")
+        }
+
+        binding.containerWechat.setLimitClickListener {
+            // TODO 微信登录
+            ToastUtils.showShort("即将接入微信登录，敬请期待！")
+        }
+
         binding.tvPrivacy.setLimitClickListener {
             // 点击进入隐私政策页面
             if (LocalCache.commonConfig.privacyUrl != "") {

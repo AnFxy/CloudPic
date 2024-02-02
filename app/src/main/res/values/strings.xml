@@ -122,4 +122,6 @@
     <string name="app_beian">APP备案号</string>
     <string name="app_beian_code">赣ICP备2024021195号-1A</string>
     <string name="bei_an">工信部服务平台</string>
+    <string name="qq_login">QQ登录</string>
+    <string name="wechat_login">微信登录</string>
 </resources>
