@@ -119,4 +119,7 @@
     <string name="privacy_center">和</string>
     <string name="privacy_login">《隐私协议》</string>
     <string name="user_privacy_login">《用户协议》</string>
+    <string name="app_beian">APP备案号</string>
+    <string name="app_beian_code">赣ICP备2024021195号-1A</string>
+    <string name="bei_an">工信部服务平台</string>
 </resources>

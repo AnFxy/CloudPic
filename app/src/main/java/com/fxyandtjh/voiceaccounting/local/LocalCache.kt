@@ -22,6 +22,7 @@ class LocalCache {
             CommonConfig(
                 privacyUrl = "",
                 userAgreementUrl = "",
+                beiAnUrl = "",
                 securityQuestions = emptyList()
             ),
             object : TypeToken<CommonConfig>() {}.type

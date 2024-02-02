@@ -6,5 +6,6 @@ import java.io.Serializable
 data class CommonConfig(
     val privacyUrl: String,
     val userAgreementUrl: String,
+    val beiAnUrl: String,
     val securityQuestions: List<SecurityQuestion>
 ) : Serializable

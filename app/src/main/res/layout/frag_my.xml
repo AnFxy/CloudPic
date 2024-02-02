@@ -120,7 +120,6 @@
             app:valueT="google_1.0.0"
             app:type="fixed"/>
 
-
         <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
             android:id="@+id/liv_bug"
             android:layout_width="match_parent"
@@ -132,7 +131,6 @@
             android:id="@+id/liv_privacy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:showLine="false"
             app:key="@string/privacy"
             app:type="empty"/>
 
@@ -140,9 +138,17 @@
             android:id="@+id/liv_user_privacy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:showLine="false"
             app:key="@string/user_privacy"
             app:type="empty"/>
+
+        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
+            android:id="@+id/liv_beian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:showLine="false"
+            app:key="@string/app_beian"
+            app:valueT="@string/app_beian_code"
+            app:type="fixed"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView

@@ -110,7 +110,26 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
 
         binding.livUserPrivacy.setLimitClickListener {
             // 点击进入用户协议页面
+            if (LocalCache.commonConfig.userAgreementUrl != "") {
+                navController.navigate(StartupNavigationDirections.justGoWebview(
+                    WebViewInfo(
+                        title = getText(R.string.user_privacy).toString(),
+                        link = LocalCache.commonConfig.userAgreementUrl
+                    )
+                ))
+            }
+        }
 
+        binding.livBeian.setLimitClickListener {
+            //  点进入备案好详情页面
+            if (LocalCache.commonConfig.beiAnUrl != "") {
+                navController.navigate(StartupNavigationDirections.justGoWebview(
+                    WebViewInfo(
+                        title = getText(R.string.bei_an).toString(),
+                        link = LocalCache.commonConfig.beiAnUrl
+                    )
+                ))
+            }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
