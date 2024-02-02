@@ -57,7 +57,7 @@ class WebViewFragment : BaseFragment<WebViewViewModel, FragWebviewBinding>() {
             settings.builtInZoomControls = true
             settings.useWideViewPort = true
             settings.loadWithOverviewMode = true
-            settings.domStorageEnabled = true
+            settings.domStorageEnabled = false
             loadUrl(args.webviewInfo.link)
         }
 

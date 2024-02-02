@@ -79,7 +79,8 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
             tempDialog.setViewState<TextView>(R.id.tv_edit) {
                 setLimitClickListener {
                     // 进行编辑相册
-                    navController.navigate(AlbumFragmentDirections.actionAlbumFragmentToNewAlbumFragment())
+                    // navController.navigate(AlbumFragmentDirections.actionAlbumFragmentToNewAlbumFragment())
+                    ToastUtils.showShort("暂未开放！")
                     tempDialog.dismiss()
                 }
             }
