@@ -54,17 +54,19 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
                     goQQPage()
                     dialog.dismiss()
                 }
-            }.setViewState<LinearLayoutCompat>(R.id.container_tel) {
-                setLimitClickListener {
-                    // 调用系统电话
-                    PhoneUtils.dial(Constants.CUS_PHONE)
-                    dialog.dismiss()
-                }
-            }.setViewState<TextView>(R.id.tv_i_know) {
+            }
+            .setViewState<TextView>(R.id.tv_i_know) {
                 setLimitClickListener {
                     dialog.dismiss()
                 }
             }
+//                .setViewState<LinearLayoutCompat>(R.id.container_tel) {
+//                setLimitClickListener {
+//                    // 调用系统电话
+//                    PhoneUtils.dial(Constants.CUS_PHONE)
+//                    dialog.dismiss()
+//                }
+//            }
         }
     }
 

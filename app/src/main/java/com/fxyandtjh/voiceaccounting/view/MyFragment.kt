@@ -68,8 +68,11 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
     }
 
     override fun setObserver() {
-        binding.livVersion.setLimitClickListener {
-            viewModel.checkUpdate()
+        binding.livVersion.apply {
+            valueT = "${BuildConfig.FLAVOR}_${BuildConfig.VERSION_NAME}"
+            setLimitClickListener {
+                viewModel.checkUpdate()
+            }
         }
 
         binding.livCache.setLimitClickListener {
