@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.fxyandtjh.voiceaccounting.BuildConfig
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.base.BaseFragment
+import com.fxyandtjh.voiceaccounting.base.Constants
 import com.fxyandtjh.voiceaccounting.base.RxDialogSet
 import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragSplashBinding
@@ -89,9 +90,12 @@ class SplashFragment : BaseFragment<SplashViewModel, FragSplashBinding>() {
                     binding.ivProgress.text = "${i}s"
                     if (i != 0) {
                         delay(1000)
-                    } else if (LocalCache.isLogged) {
-                        // 登录了，需要进入到首页
+                    } else if (LocalCache.loginType == Constants.ACCOUNT_PASSWORD_LOGIN && LocalCache.isLogged) {
+                        // 账号密码登录了，需要进入到首页
                         navController.navigate(SplashFragmentDirections.actionSplashFragmentToMainNavigation())
+                    } else if (LocalCache.loginType == Constants.QQ_LOGOIN) {
+                        // 如果是QQ登录类型， 要校验QQ登录
+                        checkQQLoginStatus()
                     } else {
                         // 进入到登录页面
                         navController.navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
@@ -106,6 +110,21 @@ class SplashFragment : BaseFragment<SplashViewModel, FragSplashBinding>() {
                 navController.navigate(SplashFragmentDirections.actionSplashFragmentToMainNavigation())
             } else {
                 // 进入到登录页面
+                navController.navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
+            }
+        }
+    }
+
+    private fun checkQQLoginStatus() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val qqStatusCode = (activity as MainActivity).doQQLogin()
+            if (qqStatusCode == Constants.QQ_LOING_STATUS_OKAY) {
+                // 进入到首页
+                navController.navigate(SplashFragmentDirections.actionSplashFragmentToMainNavigation())
+            } else {
+                // 如果QQ状态异常，则清理本地登录相关的缓存
+                LocalCache.clearALLCache()
+                // 前往登录页面
                 navController.navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
             }
         }

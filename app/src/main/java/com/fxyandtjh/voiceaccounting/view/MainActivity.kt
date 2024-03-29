@@ -2,6 +2,7 @@ package com.fxyandtjh.voiceaccounting.view
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.WindowInsetsController
@@ -16,12 +17,18 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.blankj.utilcode.util.ToastUtils
+import com.fxyandtjh.voiceaccounting.BuildConfig
 import com.fxyandtjh.voiceaccounting.R
 import com.fxyandtjh.voiceaccounting.base.RxDialogSet
 import com.fxyandtjh.voiceaccounting.databinding.ActivityMainBinding
+import com.fxyandtjh.voiceaccounting.local.LocalCache
+import com.fxyandtjh.voiceaccounting.qqsdk.QQBaseUiListener
 import com.fxyandtjh.voiceaccounting.tool.SecurityUtil
 import com.fxyandtjh.voiceaccounting.tool.setVisible
 import com.fxyandtjh.voiceaccounting.viewmodel.MainViewModel
+import com.tencent.connect.common.Constants
+import com.fxyandtjh.voiceaccounting.base.Constants as MConstants
+import com.tencent.tauth.Tencent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -33,6 +40,13 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     private val viewModel: MainViewModel by viewModels()
 
     private lateinit var navController: NavController
+
+    private lateinit var mTencent: Tencent
+
+    private val qqLoginResultListener: QQBaseUiListener = QQBaseUiListener { qqLoginInfo ->
+        // QQ 登录成功后，上传 QQ openID， QQ AccessToken， QQ AccessToken过期时间
+
+    }
 
     // 网络加载圈
     private val requestDataLoadDialog: RxDialogSet by lazy {
@@ -52,6 +66,13 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // Tencent实例
+        // 参数为 APP_ID QQ互联中创建的应用ID、全局context、AndroidManifest.xml中FileProvider的authorities属性值
+        mTencent = Tencent.createInstance(
+            BuildConfig.QQ_APP_ID,
+            applicationContext,
+            "com.whalecloud.fileprovider"
+        )
         initView()
     }
 
@@ -95,6 +116,16 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Tencent.onActivityResultData(requestCode, resultCode, data, qqLoginResultListener)
+        if (resultCode == Constants.REQUEST_API) {
+            if (resultCode == Constants.REQUEST_LOGIN) {
+                Tencent.handleResultData(data, qqLoginResultListener)
+            }
+        }
+    }
+
     private fun checkPermissionWithOperate(callback: () -> Unit) {
         // 检查是否授予了存储权限
         if (checkSelfPermission(
@@ -117,6 +148,17 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             return
         }
         viewModel.obtainTextFormVoice(base64Str, fileLength)
+    }
+
+    fun doQQLogin(): Int {
+        if (!mTencent.isSessionValid) {
+            if (LocalCache.qqToken.isNotEmpty() && LocalCache.qqOpenId.isNotEmpty()) {
+                mTencent.openId = LocalCache.qqOpenId
+                mTencent.setAccessToken(LocalCache.qqToken, "${LocalCache.qqTokenExpireTime}")
+            }
+            return mTencent.login(this, "all", qqLoginResultListener)
+        }
+        return -1
     }
 
     override fun onDestinationChanged(

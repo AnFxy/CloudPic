@@ -66,6 +66,8 @@ android {
 
             buildConfigField "String", "BAIDU_URL", '"http://vop.baidu.com"'
             buildConfigField "String", "BASE_URL", '"http://172.17.10.64:8080"'
+            buildConfigField "String", "QQ_APP_ID", '"102092414"'
+            buildConfigField "String", "QQ_APP_KEY", '"QhmLhz4wdkeNwHOH"'
             buildConfigField "String", "TOKEN", '"24.0fa11405218e99a9d5ab312cdfbe093b.2592000.1697170230.282335-39260528"'
         }
         product{
@@ -74,6 +76,8 @@ android {
 
             buildConfigField "String", "BAIDU_URL", '"http://vop.baidu.com"'
             buildConfigField "String", "BASE_URL", '"http://139.159.155.65:8080"'
+            buildConfigField "String", "QQ_APP_ID", '"102092414"'
+            buildConfigField "String", "QQ_APP_KEY", '"QhmLhz4wdkeNwHOH"'
             buildConfigField "String", "TOKEN", '"24.0fa11405218e99a9d5ab312cdfbe093b.2592000.1697170230.282335-39260528"'
         }
         tencentAppStore{
@@ -87,12 +91,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
 
     viewBinding{
@@ -171,6 +175,9 @@ dependencies {
 
     // 下拉加载
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    // QQ登录SDK集成
+    implementation 'com.tencent.tauth:qqopensdk:3.52.0'
 
     // 图片缩放
     implementation "io.github.panpf.sketch3:sketch:3.3.0-beta04"

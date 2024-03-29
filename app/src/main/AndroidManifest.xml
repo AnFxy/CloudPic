@@ -17,6 +17,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
+    <!-- Android12以上授权查询QQ -->
+    <queries>
+        <package android:name="com.tencent.mobileqq" />
+    </queries>
+
     <!-- Android 13版本适配，细化存储权限 -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
@@ -56,7 +61,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" /><!--tencent你的AppId-->
+                <data android:scheme="tencent102092414" /><!--tencent你的AppId-->
             </intent-filter>
         </activity>
         <activity
@@ -64,6 +69,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="behind"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

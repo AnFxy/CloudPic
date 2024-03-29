@@ -23,6 +23,7 @@ import com.fxyandtjh.voiceaccounting.tool.PicLoadUtil
 import com.fxyandtjh.voiceaccounting.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.util.regex.Pattern
 
 @AndroidEntryPoint
@@ -80,8 +81,11 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
         }
 
         binding.containerQq.setLimitClickListener {
-            // TODO QQ登录
-            ToastUtils.showShort("即将接入QQ登录，敬请期待！")
+            try {
+                (activity as MainActivity).doQQLogin()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
         binding.containerWechat.setLimitClickListener {
