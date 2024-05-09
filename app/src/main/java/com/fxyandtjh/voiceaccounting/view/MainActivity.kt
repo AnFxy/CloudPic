@@ -19,6 +19,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.blankj.utilcode.util.ToastUtils
 import com.fxyandtjh.voiceaccounting.BuildConfig
 import com.fxyandtjh.voiceaccounting.R
+import com.fxyandtjh.voiceaccounting.StartupNavigationDirections
 import com.fxyandtjh.voiceaccounting.base.RxDialogSet
 import com.fxyandtjh.voiceaccounting.databinding.ActivityMainBinding
 import com.fxyandtjh.voiceaccounting.local.LocalCache
@@ -30,6 +31,7 @@ import com.tencent.connect.common.Constants
 import com.fxyandtjh.voiceaccounting.base.Constants as MConstants
 import com.tencent.tauth.Tencent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     private val qqLoginResultListener: QQBaseUiListener = QQBaseUiListener { qqLoginInfo ->
         // QQ 登录成功后，上传 QQ openID， QQ AccessToken， QQ AccessToken过期时间
-
+        viewModel.uploadQQLoginInfo(qqLoginInfo)
     }
 
     // 网络加载圈
@@ -101,6 +103,14 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             }
         }
 
+        lifecycleScope.launch {
+            viewModel._goHomePage.collect {
+                if (it) {
+                    navController.navigate(StartupNavigationDirections.justGoMain())
+                }
+            }
+        }
+
         binding.nvBottom.setOnItemSelectedListener {
             val builder =
                 NavOptions.Builder()
@@ -139,15 +149,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 Manifest.permission.READ_EXTERNAL_STORAGE
             )
         }
-    }
-
-    private fun uploadFileToBaiDuCloud(base64Str: String, fileLength: Int) {
-        // 防止被抓包
-        if (SecurityUtil.isWifiProxy()) {
-            ToastUtils.showShort("你开了WIFI代理，客户端不允许抓包，请关闭!")
-            return
-        }
-        viewModel.obtainTextFormVoice(base64Str, fileLength)
     }
 
     fun doQQLogin(): Int {

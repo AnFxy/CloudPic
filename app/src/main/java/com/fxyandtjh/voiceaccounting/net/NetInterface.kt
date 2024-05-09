@@ -33,6 +33,14 @@ interface NetInterface {
     @POST("/logout")
     suspend fun doLogout(@Body body: Map<String, String>): BaseResponse<Unit>
 
+    // 上传QQ登录状态
+    @POST("/update_qq_login_status")
+    suspend fun updateQQLoginStatus(@Body body: Map<String, @JvmSuppressWildcards Any>): BaseResponse<Unit>
+
+    // 移除QQ登录状态
+    @POST("/remove_qq_login_status")
+    suspend fun removeQQLoginStatus(@Body body: Map<String, String>): BaseResponse<Unit>
+
     // 创建相册
     @POST("/create_album")
     suspend fun createAlbum(@Body body: Map<String, @JvmSuppressWildcards Any>): BaseResponse<Unit>

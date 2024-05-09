@@ -1,6 +1,7 @@
 package com.fxyandtjh.voiceaccounting.net
 
 import com.fxyandtjh.voiceaccounting.BuildConfig
+import com.fxyandtjh.voiceaccounting.base.Constants
 import com.fxyandtjh.voiceaccounting.local.LocalCache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -23,7 +24,19 @@ class RetrofitConfig private constructor() {
             addInterceptor(
                 Interceptor { chain ->
                     val request = chain.request().newBuilder()
-                    request.addHeader("token", LocalCache.token)
+                    val token = when (LocalCache.loginType) {
+                        Constants.ACCOUNT_PASSWORD_LOGIN -> {
+                            LocalCache.token
+                        }
+                        Constants.QQ_LOGOIN -> {
+                            LocalCache.qqToken
+                        }
+                        else -> {
+                            ""
+                        }
+                    }
+                    request.addHeader("token", token)
+
                     chain.proceed(request.build())
                 }
             )

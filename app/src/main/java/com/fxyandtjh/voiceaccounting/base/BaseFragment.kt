@@ -16,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewbinding.ViewBinding
 import com.blankj.utilcode.util.ColorUtils
-import com.blankj.utilcode.util.PhoneUtils
 import com.fxyandtjh.voiceaccounting.R
 import kotlinx.coroutines.launch
 
@@ -55,11 +54,11 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
                     dialog.dismiss()
                 }
             }
-            .setViewState<TextView>(R.id.tv_i_know) {
-                setLimitClickListener {
-                    dialog.dismiss()
+                .setViewState<TextView>(R.id.tv_i_know) {
+                    setLimitClickListener {
+                        dialog.dismiss()
+                    }
                 }
-            }
 //                .setViewState<LinearLayoutCompat>(R.id.container_tel) {
 //                setLimitClickListener {
 //                    // 调用系统电话

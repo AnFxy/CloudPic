@@ -14,7 +14,6 @@ class LoginRepository @Inject constructor(
 ) : ILoginRepository {
 
     override suspend fun doLogin(loginInfo: LoginInfo): TokenInfo {
-        super.doLogin(loginInfo)
         checkProxy()
         val map = HashMap<String, String>()
         map["phoneNumber"] = loginInfo.phoneNumber
@@ -41,11 +40,19 @@ class LoginRepository @Inject constructor(
 
     override suspend fun uploadQQLoginInfo(qqLoginInfo: QQLoginInfo) {
         checkProxy()
-
+        val map = HashMap<String, Any>()
+        map["qqOpenId"] = qqLoginInfo.openid
+        map["qqAccessToken"] = qqLoginInfo.access_token
+        map["qqTokenExpireTime"] = qqLoginInfo.expires_time
+        service.updateQQLoginStatus(map).checkError()
     }
 
     override suspend fun removeQQLoginInfo(qqOpenId: String, qqToken: String) {
-        TODO("Not yet implemented")
+        checkProxy()
+        val map = HashMap<String, String>()
+        map["qqOpenId"] = qqOpenId
+        map["qqAccessToken"] = qqToken
+        service.removeQQLoginStatus(map).checkError()
     }
 
     private suspend fun checkProxy() {

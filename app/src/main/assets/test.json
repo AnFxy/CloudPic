@@ -1,0 +1,14 @@
+{
+  "ret": 0,
+  "openid": "49E7EF035626033B9B1F19595AE5672A",
+  "access_token": "D242392A1C72F5CD72F578CE5EA29650",
+  "pay_token": "2794751A0E028306F950E0991C7F7E5C",
+  "expires_in": 7776000,
+  "pf": "desktop_m_qq-10000144-android-2002-",
+  "pfkey": "624df49ee980970bdf3f4e09035a8c3d",
+  "msg": "",
+  "login_cost": 98,
+  "query_authority_cost": 0,
+  "authority_cost": 0,
+  "expires_time": 1723018149917
+}

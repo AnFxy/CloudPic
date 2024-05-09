@@ -39,6 +39,12 @@
         app:popUpToInclusive="true"/>
 
     <action
+        android:id="@+id/just_go_main"
+        app:destination="@id/main_navigation"
+        app:popUpTo="@id/main_navigation"
+        app:popUpToInclusive="true"/>
+
+    <action
         android:id="@+id/just_go_webview"
         app:destination="@id/webViewFragment">
         <argument

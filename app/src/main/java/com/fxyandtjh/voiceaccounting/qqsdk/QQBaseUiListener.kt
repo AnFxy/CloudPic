@@ -2,6 +2,8 @@ package com.fxyandtjh.voiceaccounting.qqsdk
 
 import com.blankj.utilcode.util.ToastUtils
 import com.fxyandtjh.voiceaccounting.entity.QQLoginInfo
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.tencent.tauth.IUiListener
 import com.tencent.tauth.UiError
 
@@ -14,7 +16,8 @@ class QQBaseUiListener(private val onLoginSuccess: (QQLoginInfo) -> Unit) : IUiL
     override fun onComplete(p0: Any?) {
         p0?.let {
             ToastUtils.showShort("QQ登录授权成功！")
-            onLoginSuccess.invoke((it as QQLoginInfo))
+            val qqLoginInfo: QQLoginInfo = Gson().fromJson(it.toString(), object : TypeToken<QQLoginInfo>() {}.type)
+            onLoginSuccess.invoke(qqLoginInfo)
         } ?: ToastUtils.showShort("QQ登录授权异常！")
     }
 

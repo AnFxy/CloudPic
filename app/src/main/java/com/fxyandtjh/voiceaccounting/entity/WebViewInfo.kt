@@ -5,4 +5,4 @@ import java.io.Serializable
 data class WebViewInfo(
     val title: String,
     val link: String
-): Serializable
+) : Serializable

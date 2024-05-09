@@ -2,6 +2,7 @@ package com.fxyandtjh.voiceaccounting.viewmodel
 
 import com.fxyandtjh.voiceaccounting.BuildConfig
 import com.fxyandtjh.voiceaccounting.base.BaseViewModel
+import com.fxyandtjh.voiceaccounting.base.Constants
 import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.net.response.UserInfo
 import com.fxyandtjh.voiceaccounting.net.response.VersionInfo
@@ -50,7 +51,11 @@ class MyViewModel @Inject constructor(
 
     fun doLogout() {
         launchUIWithDialog {
-            loginRepository.doLogout(phoneNumber = LocalCache.phoneNumber, token = LocalCache.token)
+            if (LocalCache.loginType == Constants.ACCOUNT_PASSWORD_LOGIN) {
+                loginRepository.doLogout(phoneNumber = LocalCache.phoneNumber, token = LocalCache.token)
+            } else if (LocalCache.loginType == Constants.QQ_LOGOIN){
+                loginRepository.removeQQLoginInfo(qqOpenId = LocalCache.qqOpenId, qqToken = LocalCache.qqToken)
+            }
             // 登出成功后，清除本地缓存，跳转到登录页面
             LocalCache.clearALLCache()
             goLogin.emit(true)
