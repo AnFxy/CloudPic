@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsetsController
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -128,11 +129,8 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Tencent.onActivityResultData(requestCode, resultCode, data, qqLoginResultListener)
-        if (resultCode == Constants.REQUEST_API) {
-            if (resultCode == Constants.REQUEST_LOGIN) {
-                Tencent.handleResultData(data, qqLoginResultListener)
-            }
+        if (requestCode == Constants.REQUEST_LOGIN) {
+            Tencent.onActivityResultData(requestCode, resultCode, data, qqLoginResultListener)
         }
     }
 
@@ -152,14 +150,12 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     }
 
     fun doQQLogin(): Int {
+        mTencent.openId = LocalCache.qqOpenId
+        mTencent.setAccessToken(LocalCache.qqToken, "${LocalCache.qqTokenExpireTime}")
         if (!mTencent.isSessionValid) {
-            if (LocalCache.qqToken.isNotEmpty() && LocalCache.qqOpenId.isNotEmpty()) {
-                mTencent.openId = LocalCache.qqOpenId
-                mTencent.setAccessToken(LocalCache.qqToken, "${LocalCache.qqTokenExpireTime}")
-            }
             return mTencent.login(this, "all", qqLoginResultListener)
         }
-        return -1
+        return 0
     }
 
     override fun onDestinationChanged(

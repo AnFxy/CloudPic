@@ -6,7 +6,6 @@ import com.fxyandtjh.voiceaccounting.entity.QQLoginInfo
 import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.repository.ILoginRepository
 import com.fxyandtjh.voiceaccounting.repository.IMainRepository
-import com.fxyandtjh.voiceaccounting.repository.impl.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -27,6 +26,7 @@ class MainViewModel @Inject constructor(
             LocalCache.isLogged = true
             LocalCache.qqToken = qqLoginInfo.access_token
             LocalCache.qqOpenId = qqLoginInfo.openid
+            LocalCache.qqTokenExpireTime = qqLoginInfo.expires_time
             LocalCache.loginType = Constants.QQ_LOGOIN
             // 请求获取用户个人信息
             LocalCache.userInfo = mainRepository.obtainUserInformation()
