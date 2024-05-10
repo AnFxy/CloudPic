@@ -38,7 +38,6 @@ public class HandlePhoto {
     public static String mCameraImagePath;
     private static final boolean isAndroidQ = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
 
-
     @SuppressLint("Range")
     private static String getImagePath(Uri uri, String selection, Context context) {
         String path = null;

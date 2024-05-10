@@ -77,7 +77,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
         }
         binding.btnForgetPw.setLimitClickListener {
             // TODO 前往密保页面
-            ToastUtils.showShort("暂未开放，请联系客服！")
+            ToastUtils.showShort("暂未开放。")
         }
 
         binding.containerQq.setLimitClickListener {
@@ -90,7 +90,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
 
         binding.containerWechat.setLimitClickListener {
             // TODO 微信登录
-            ToastUtils.showShort("即将接入微信登录，敬请期待！")
+            ToastUtils.showShort("即将接入微信登录，敬请期待。")
         }
 
         binding.tvPrivacy.setLimitClickListener {

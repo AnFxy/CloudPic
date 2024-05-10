@@ -1,14 +1,23 @@
 package com.fxyandtjh.voiceaccounting.viewmodel
 
+import android.util.Base64
 import com.fxyandtjh.voiceaccounting.base.BaseViewModel
 import com.fxyandtjh.voiceaccounting.base.Constants
+import com.fxyandtjh.voiceaccounting.entity.PicFile
 import com.fxyandtjh.voiceaccounting.entity.QQLoginInfo
 import com.fxyandtjh.voiceaccounting.local.LocalCache
 import com.fxyandtjh.voiceaccounting.repository.ILoginRepository
 import com.fxyandtjh.voiceaccounting.repository.IMainRepository
+import com.fxyandtjh.voiceaccounting.tool.PicLoadUtil
+import com.luck.picture.lib.entity.LocalMedia
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import java.io.File
+import java.io.FileInputStream
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel

@@ -63,7 +63,7 @@ interface NetInterface {
 
     // 删除相册
     @POST("/delete_album")
-    suspend fun deleteAlbum(@Body body: Map<String, String>): BaseResponse<Unit>
+    suspend fun deleteAlbum(@Body body: Map<String, @JvmSuppressWildcards Any>): BaseResponse<Unit>
 
     // 更新相册详情页面
     @POST("/update_album_detail")

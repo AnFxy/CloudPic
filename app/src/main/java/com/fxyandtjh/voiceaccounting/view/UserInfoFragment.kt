@@ -28,6 +28,7 @@ import com.fxyandtjh.voiceaccounting.base.setLimitClickListener
 import com.fxyandtjh.voiceaccounting.databinding.FragUserInfoBinding
 import com.fxyandtjh.voiceaccounting.net.response.UserInfo
 import com.fxyandtjh.voiceaccounting.tool.HandlePhoto
+import com.fxyandtjh.voiceaccounting.tool.PicLoadUtil
 import com.fxyandtjh.voiceaccounting.tool.SimplePermissionCallBack
 import com.fxyandtjh.voiceaccounting.tool.timeStampToDate
 import com.fxyandtjh.voiceaccounting.viewmodel.UserInfoViewModel
@@ -86,17 +87,22 @@ class UserInfoFragment : BaseFragment<UserInfoViewModel, FragUserInfoBinding>() 
         // 相册
         albumLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { url ->
             url?.let {
-                try {
-                    val file = File(HandlePhoto.handleImageOkKitKat(it, context))
-                    val fileInputStream = FileInputStream(file)
-                    val bytes = ByteArray(fileInputStream.available())
-                    fileInputStream.read(bytes)
-                    fileInputStream.close()
-                    val base64Str = String(Base64.encode(bytes, Base64.NO_WRAP))
-                    val type = file.extension.uppercase(Locale.getDefault())
-                    viewModel.uploadPicture(base64Str, type)
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                // 压缩是耗时操作，需要挂线程，不然UI线程会卡顿
+                viewLifecycleOwner.lifecycleScope.launch {
+                    try {
+                        val file = File(HandlePhoto.handleImageOkKitKat(it, context))
+                        val fileInputStream = FileInputStream(file)
+                        val bytes = ByteArray(fileInputStream.available())
+                        fileInputStream.read(bytes)
+                        fileInputStream.close()
+                        // 压缩图片至 500K
+                        val compressBytes = PicLoadUtil.instance.compressByQuality(bytes)
+                        val base64Str = String(Base64.encode(compressBytes, Base64.NO_WRAP))
+                        val type = file.extension.uppercase(Locale.getDefault())
+                        viewModel.uploadPicture(base64Str, type)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
             }
         }

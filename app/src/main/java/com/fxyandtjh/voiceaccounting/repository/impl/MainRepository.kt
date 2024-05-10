@@ -76,9 +76,9 @@ class MainRepository @Inject constructor(
 
     override suspend fun deleteAlbum(albumId: String, type: Int) {
         checkProxy()
-        val map = HashMap<String, String>()
+        val map = HashMap<String, Any>()
         map["albumId"] = albumId
-        map["type"] = "$type"
+        map["type"] = type
         return service.deleteAlbum(map).checkError()
     }
 

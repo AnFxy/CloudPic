@@ -26,8 +26,6 @@ import com.fxyandtjh.voiceaccounting.entity.PicFile
 import com.fxyandtjh.voiceaccounting.entity.PicsDetail
 import com.fxyandtjh.voiceaccounting.entity.Type
 import com.fxyandtjh.voiceaccounting.tool.GlideEngine
-import com.fxyandtjh.voiceaccounting.tool.HandlePhoto
-import com.fxyandtjh.voiceaccounting.tool.MyPicSelectorStyle
 import com.fxyandtjh.voiceaccounting.tool.PicDividerUtil
 import com.fxyandtjh.voiceaccounting.tool.PicLoadUtil
 import com.fxyandtjh.voiceaccounting.tool.setVisible
@@ -38,7 +36,9 @@ import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.interfaces.OnResultCallbackListener
 import com.luck.picture.lib.style.PictureSelectorStyle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileInputStream
 import java.util.Locale
@@ -80,7 +80,7 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
                 setLimitClickListener {
                     // 进行编辑相册
                     // navController.navigate(AlbumFragmentDirections.actionAlbumFragmentToNewAlbumFragment())
-                    ToastUtils.showShort("暂未开放！")
+                    ToastUtils.showShort("暂未开放。")
                     tempDialog.dismiss()
                 }
             }
@@ -193,7 +193,7 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
                     }
 
                     override fun onCancel() {
-                        ToastUtils.showShort(getText(R.string.no_select_pic))
+//                        ToastUtils.showShort(getText(R.string.no_select_pic))
                     }
                 })
         }
@@ -318,17 +318,24 @@ class AlbumFragment : BaseFragment<AlbumViewModel, FragAlbumBinding>() {
     }
 
     private fun handleUriToBase64(photos: List<LocalMedia?>) {
-        val picFiles: List<PicFile> = photos.map { item ->
-            val file = File(item?.realPath ?: "")
-            val fileInputStream = FileInputStream(file)
-            val bytes = ByteArray(fileInputStream.available())
-            fileInputStream.read(bytes)
-            fileInputStream.close()
-            val base64Str = String(Base64.encode(bytes, Base64.NO_WRAP))
-            val type = file.extension.uppercase(Locale.getDefault())
-            PicFile(base64Str, type)
+        binding.tvTitle.text = getString(R.string.compress_pic)
+        viewLifecycleOwner.lifecycleScope.launch(context = Dispatchers.IO) {
+            val picFiles: List<PicFile> = photos.map { item ->
+                val file = File(item?.realPath ?: "")
+                val fileInputStream = FileInputStream(file)
+                val bytes = ByteArray(fileInputStream.available())
+                fileInputStream.read(bytes)
+                fileInputStream.close()
+                // 压缩图片至 500K
+                val compressBytes = PicLoadUtil.instance.compressByQuality(bytes)
+                val base64Str = String(Base64.encode(compressBytes, Base64.NO_WRAP))
+                val type = file.extension.uppercase(Locale.getDefault())
+                PicFile(base64Str, type)
+            }
+            withContext(context = Dispatchers.Main) {
+                viewModel.uploadPictures(picFiles)
+            }
         }
-        viewModel.uploadPictures(picFiles)
     }
 
     private fun updateTopBarStatus(showAll: Boolean) {
