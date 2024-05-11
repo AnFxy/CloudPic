@@ -77,12 +77,12 @@
         android:background="@drawable/bg_10_white"
         app:layout_constraintTop_toBottomOf="@id/tv_des">
 
-        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
-            android:id="@+id/liv_security"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="@string/account_security"
-            app:type="empty"/>
+<!--        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView-->
+<!--            android:id="@+id/liv_security"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:key="@string/account_security"-->
+<!--            app:type="empty"/>-->
 
         <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
             android:id="@+id/liv_info"
@@ -104,13 +104,13 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/container_account">
 
-        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
-            android:id="@+id/liv_cache"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:key="@string/clear_cache"
-            app:valueT="0KB"
-            app:type="fixed"/>
+<!--        <com.fxyandtjh.voiceaccounting.view.customer.LineItemView-->
+<!--            android:id="@+id/liv_cache"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:key="@string/clear_cache"-->
+<!--            app:valueT="0KB"-->
+<!--            app:type="fixed"/>-->
 
         <com.fxyandtjh.voiceaccounting.view.customer.LineItemView
             android:id="@+id/liv_version"

@@ -105,6 +105,19 @@ class LoginFragment : BaseFragment<LoginViewModel, FragLoginBinding>() {
                 ))
             }
         }
+        binding.tvPrivacyUser.setLimitClickListener {
+            // 点击进入用户协议页面
+            if (LocalCache.commonConfig.privacyUrl != "") {
+                navController.navigate(
+                    StartupNavigationDirections.justGoWebview(
+                        WebViewInfo(
+                            title = getText(R.string.user_privacy).toString(),
+                            link = LocalCache.commonConfig.userAgreementUrl
+                        )
+                    ))
+            }
+        }
+
         binding.btnRegister.setLimitClickListener {
             if (binding.btnRegister.isChecked == viewModel._selectedLogin.value) {
                 viewModel.changeSelectedState()

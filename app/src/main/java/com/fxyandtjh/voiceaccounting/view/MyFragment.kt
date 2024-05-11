@@ -75,9 +75,9 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
             }
         }
 
-        binding.livCache.setLimitClickListener {
-            ToastUtils.showShort(getText(R.string.no_cache))
-        }
+//        binding.livCache.setLimitClickListener {
+//            ToastUtils.showShort(getText(R.string.no_cache))
+//        }
 
         binding.tvLogout.setLimitClickListener {
             // 点击退出登录 弹出挽留弹框
@@ -94,10 +94,10 @@ class MyFragment : BaseFragment<MyViewModel, FragMyBinding>() {
             navController.navigate(MyFragmentDirections.actionMyFragmentToBugFragment())
         }
 
-        binding.livSecurity.setLimitClickListener {
-            // 点击进入账户安全页面
-            navController.navigate(MyFragmentDirections.actionMyFragmentToAccountSecurityFragment())
-        }
+//        binding.livSecurity.setLimitClickListener {
+//            // 点击进入账户安全页面
+//            navController.navigate(MyFragmentDirections.actionMyFragmentToAccountSecurityFragment())
+//        }
 
         binding.livPrivacy.setLimitClickListener {
             // 点击进入隐私政策页面
