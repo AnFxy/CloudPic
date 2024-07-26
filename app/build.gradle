@@ -103,8 +103,8 @@ android {
         enabled = true
     }
 
-    android.applicationVariants.all { variant ->
-        variant.outputs.all {
+    android.applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach {
             // 名称_日期_android_版本号.apk
             outputFileName = "VoiceAccounting_${currentTime()}_${versionName}.apk"
         }

@@ -39,7 +39,7 @@ class StartupRepository @Inject constructor(
     }
 
     private suspend fun checkProxy() {
-        // 防止被抓包
+//        // 防止被抓包
 //        if (SecurityUtil.isWifiProxy()) {
 //            throw Exception("非常抱歉，请关闭您的WIFI代理!")
 //        }

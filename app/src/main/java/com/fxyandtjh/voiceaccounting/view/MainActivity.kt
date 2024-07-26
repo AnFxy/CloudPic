@@ -17,6 +17,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.fxyandtjh.voiceaccounting.BuildConfig
 import com.fxyandtjh.voiceaccounting.R
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         mTencent = Tencent.createInstance(
             BuildConfig.QQ_APP_ID,
             applicationContext,
-            "com.whalecloud.fileprovider"
+            AppUtils.getAppPackageName() + ".fileprovider"
         )
         initView()
     }

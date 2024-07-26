@@ -118,8 +118,8 @@ class MainRepository @Inject constructor(
 
     private suspend fun checkProxy() {
         // 防止被抓包
-//        if (SecurityUtil.isWifiProxy()) {
-//            throw Exception("您开了WIFI代理，客户端不允许抓包，请关闭!")
-//        }
+        if (SecurityUtil.isWifiProxy()) {
+            throw Exception("您开了WIFI代理，客户端不允许抓包，请关闭!")
+        }
     }
 }

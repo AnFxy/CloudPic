@@ -125,4 +125,8 @@
     <string name="bei_an">工信部服务平台</string>
     <string name="qq_login">QQ登录</string>
     <string name="wechat_login">微信登录</string>
+    <string name="deny_permission_update">未授予存储权限，请在“设置”->“应用”->“小鲸鱼相册”->“权限”->“存储”中开启</string>
+    <string name="init_download_text">0M/0M</string>
+    <string name="init_progress_text">0%</string>
+    <string name="init_desc">当前速度<font color="#DBA366">0Mb/s</font>, 预计还需<font color="#DBA366">xx秒</font>，请稍后～</string>
 </resources>

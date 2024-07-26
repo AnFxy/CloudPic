@@ -58,39 +58,92 @@
             tools:text="1、细节小优化功能大提升！\n2、为了给您提供更好的体验，接下来进行一个小更新。"/>
 
         <LinearLayout
-            android:id="@+id/container_update"
+            android:id="@+id/btn_container"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:background="@drawable/bg_16_blue"
-            android:layout_marginHorizontal="15dp">
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/container_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/bg_16_blue"
+                android:layout_marginHorizontal="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/update_now"
+                    style="@style/TextWhiteBold16"
+                    android:paddingVertical="8dp" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@mipmap/update_mini"/>
+            </LinearLayout>
+
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_close"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/update_now"
-                style="@style/TextWhiteBold16"
-                android:paddingVertical="8dp" />
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginStart="5dp"
-                android:src="@mipmap/update_mini"/>
+                android:layout_marginHorizontal="15dp"
+                android:paddingVertical="8dp"
+                android:layout_marginTop="3dp"
+                style="@style/GrayText14"
+                android:text="@string/next_do"/>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_close"
+        <!--进度条-->
+        <LinearLayout
+            android:id="@+id/progress_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_marginHorizontal="15dp"
-            android:paddingVertical="8dp"
-            android:layout_marginTop="3dp"
-            style="@style/GrayText14"
-            android:text="@string/next_do"/>
+            android:paddingTop="20dp"
+            android:paddingHorizontal="15dp"
+            android:orientation="vertical">
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/progress_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:progress="0"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/GrayText12"
+                    android:layout_weight="1"
+                    android:text="@string/init_download_text"/>
+                <TextView
+                    android:id="@+id/tv_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/GrayText12"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    android:text="@string/init_progress_text"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                style="@style/GrayText12"
+                android:text="@string/init_desc"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <ImageView
